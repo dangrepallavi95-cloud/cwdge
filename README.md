@@ -14,7 +14,7 @@ Use the local demonstration account to enter the admin portal:
 
 ```text
 Email: asorkar@gmail.com
-Password: 1234
+Password: 123456789
 ```
 
 Card, customer, and payment data are stored persistently in `data/cwdge.db` and seeded on first startup.
