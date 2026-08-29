@@ -81,5 +81,24 @@
       document.querySelector("#backToPayment").onclick = () => { document.querySelector("#productsView").hidden = true; document.querySelector("#paymentView").hidden = false; };
       document.querySelector("#productsForm").onsubmit = async (event) => { event.preventDefault(); const fields = new FormData(event.target); const products = Array.from({ length: 10 }, (_, i) => ({ name: fields.get(`name${i}`), image: "" })).filter(x => x.name); await api(`/api/customer/cards/${customerSession.cardId}/products`, { method: "PATCH", body: JSON.stringify({ products }) }); const attachments = new FormData(); Array.from({ length: 10 }, (_, i) => fields.get(`productImage${i}`)).forEach((file, i) => { if (file?.size) attachments.append(`productImage${i}`, file); }); if ([...attachments.keys()].length) await fetch(`/api/customer/cards/${customerSession.cardId}/products/attachments`, { method: "POST", body: attachments }); document.querySelector("#productsStatus").textContent = "Products and images saved"; };
     </script>
+    <button id="skipStep" class="secondary" style="position:fixed;right:24px;bottom:24px;z-index:8" hidden>Skip this step</button>
+    <script>
+      const skipStep = document.querySelector("#skipStep");
+      const customerViews = ["#customerView", "#paymentView", "#productsView"];
+      const syncSkipButton = () => skipStep.hidden = !customerViews.some((selector) => !document.querySelector(selector).hidden);
+      const observer = new MutationObserver(syncSkipButton);
+      customerViews.forEach((selector) => observer.observe(document.querySelector(selector), { attributes: true, attributeFilter: ["hidden"] }));
+      skipStep.onclick = () => {
+        if (!document.querySelector("#customerView").hidden) {
+          if (!document.querySelector("#themeStep").hidden) return document.querySelector("#saveTheme").click();
+          if (!document.querySelector("#detailsStep").hidden) return showCustomerStep("social");
+          document.querySelector("#socialLinksForm").requestSubmit();
+          return;
+        }
+        if (!document.querySelector("#paymentView").hidden) return document.querySelector("#paymentOptionsForm").requestSubmit();
+        document.querySelector("#productsStatus").textContent = "Setup complete";
+      };
+      syncSkipButton();
+    </script>
   </body>
 </html>
