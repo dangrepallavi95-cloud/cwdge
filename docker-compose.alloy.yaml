@@ -6,4 +6,4 @@ services:
     restart: unless-stopped
     volumes:
       - .:/workspace
-    command: bash -lc "npm install && node server.js"
+    command: bash -lc "npm ci && npm start"
