@@ -101,6 +101,11 @@ app.get("/api/summary", (_req, res) => res.json({
 app.get("/api/cards", (_req, res) => res.json(db.prepare(`${cardQuery} ORDER BY cards.id DESC`).all()));
 app.get("/api/customers", (_req, res) => res.json(db.prepare("SELECT * FROM customers ORDER BY id DESC").all()));
 app.get("/api/payments", (_req, res) => res.json(db.prepare("SELECT payments.*, cards.company_name FROM payments JOIN cards ON cards.id = payments.card_id ORDER BY paid_at DESC").all()));
+app.get("/api/search", (req, res) => {
+  const term = `%${String(req.query.q || "").trim()}%`;
+  if (term === "%%") return res.json([]);
+  res.json(db.prepare(`${cardQuery} WHERE cards.company_name LIKE ? OR customers.name LIKE ? OR customers.email LIKE ? ORDER BY cards.id DESC`).all(term, term, term));
+});
 app.post("/api/cards", (req, res) => {
   const { companyName, customerName, email, phone, plan = "Trial" } = req.body;
   if (![companyName, customerName, email, phone].every(Boolean)) return res.status(400).json({ error: "Complete all customer and card details." });
