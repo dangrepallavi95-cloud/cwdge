@@ -89,7 +89,6 @@ app.post("/api/login", (req, res) => {
 });
 app.post("/api/customer/register", (req, res) => {
   const { name, email, phone, password, companyName } = req.body;
-  if (![name, email, phone, password, companyName].every(Boolean)) return res.status(400).json({ error: "Complete all registration fields." });
   if (db.prepare("SELECT id FROM customers WHERE email = ?").get(email)) return res.status(409).json({ error: "An account already exists for this email." });
   const result = db.transaction(() => {
     const customer = db.prepare("INSERT INTO customers (name, email, phone, password) VALUES (?, ?, ?, ?)").run(name, email, phone, password);
@@ -134,7 +133,6 @@ app.get("/api/search", (req, res) => {
 });
 app.post("/api/cards", (req, res) => {
   const { companyName, customerName, email, phone, plan = "Trial" } = req.body;
-  if (![companyName, customerName, email, phone].every(Boolean)) return res.status(400).json({ error: "Complete all customer and card details." });
   let customer = db.prepare("SELECT id FROM customers WHERE email = ?").get(email);
   if (!customer) customer = { id: db.prepare("INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)").run(customerName, email, phone).lastInsertRowid };
   const amount = plan === "Professional" ? 2499 : plan === "Business" ? 4999 : 999;
@@ -163,7 +161,6 @@ app.patch("/api/customer/cards/:id/theme", (req, res) => {
 });
 app.patch("/api/customer/cards/:id/details", (req, res) => {
   const { companyName, logoUrl, firstName, lastName, designation, phone, alternatePhone, whatsapp, address, website, location, establishedOn, aboutUs } = req.body;
-  if (![companyName, firstName, designation, phone, address, aboutUs].every(Boolean)) return res.status(400).json({ error: "Complete the required company details." });
   const result = db.transaction(() => {
     const cardUpdate = db.prepare(`UPDATE cards SET company_name = ?, logo_url = ?, first_name = ?, last_name = ?, designation = ?, alternate_phone = ?, whatsapp = ?, address = ?, website = ?, location = ?, established_on = ?, about_us = ? WHERE id = ?`).run(companyName, logoUrl || null, firstName, lastName || null, designation, alternatePhone || null, whatsapp || null, address, website || null, location || null, establishedOn || null, aboutUs, req.params.id);
     db.prepare("UPDATE customers SET phone = ? WHERE id = (SELECT customer_id FROM cards WHERE id = ?)").run(phone, req.params.id);
