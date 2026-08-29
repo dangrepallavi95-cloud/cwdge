@@ -44,6 +44,10 @@ const customerColumns = db.prepare("PRAGMA table_info(customers)").all().map((co
 const cardColumns = db.prepare("PRAGMA table_info(cards)").all().map((column) => column.name);
 if (!customerColumns.includes("password")) db.exec("ALTER TABLE customers ADD COLUMN password TEXT");
 if (!cardColumns.includes("selected_theme")) db.exec("ALTER TABLE cards ADD COLUMN selected_theme TEXT NOT NULL DEFAULT 'Ocean'");
+const cardProfileColumns = ["logo_url", "first_name", "last_name", "designation", "alternate_phone", "whatsapp", "address", "website", "location", "established_on", "about_us"];
+for (const column of cardProfileColumns) {
+  if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
+}
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -90,7 +94,7 @@ app.post("/api/customer/login", (req, res) => {
 app.get("/api/customer/cards", (req, res) => {
   const customer = db.prepare("SELECT id FROM customers WHERE email = ?").get(req.query.email);
   if (!customer) return res.status(404).json({ error: "Customer account not found." });
-  res.json(db.prepare("SELECT * FROM cards WHERE customer_id = ? ORDER BY id DESC").all(customer.id));
+  res.json(db.prepare("SELECT cards.*, customers.phone FROM cards JOIN customers ON customers.id = cards.customer_id WHERE cards.customer_id = ? ORDER BY cards.id DESC").all(customer.id));
 });
 app.get("/api/summary", (_req, res) => res.json({
   cards: db.prepare("SELECT COUNT(*) AS count FROM cards").get().count,
@@ -143,6 +147,17 @@ app.patch("/api/customer/cards/:id/theme", (req, res) => {
   if (!["Ocean", "Forest", "Berry", "Monochrome"].includes(theme)) return res.status(400).json({ error: "Select a valid card theme." });
   db.prepare("UPDATE cards SET selected_theme = ? WHERE id = ?").run(theme, req.params.id);
   res.json({ success: true, theme });
+});
+app.patch("/api/customer/cards/:id/details", (req, res) => {
+  const { companyName, logoUrl, firstName, lastName, designation, phone, alternatePhone, whatsapp, address, website, location, establishedOn, aboutUs } = req.body;
+  if (![companyName, firstName, designation, phone, address, aboutUs].every(Boolean)) return res.status(400).json({ error: "Complete the required company details." });
+  const result = db.transaction(() => {
+    const cardUpdate = db.prepare(`UPDATE cards SET company_name = ?, logo_url = ?, first_name = ?, last_name = ?, designation = ?, alternate_phone = ?, whatsapp = ?, address = ?, website = ?, location = ?, established_on = ?, about_us = ? WHERE id = ?`).run(companyName, logoUrl || null, firstName, lastName || null, designation, alternatePhone || null, whatsapp || null, address, website || null, location || null, establishedOn || null, aboutUs, req.params.id);
+    db.prepare("UPDATE customers SET phone = ? WHERE id = (SELECT customer_id FROM cards WHERE id = ?)").run(phone, req.params.id);
+    return cardUpdate;
+  })();
+  if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json(db.prepare("SELECT * FROM cards WHERE id = ?").get(req.params.id));
 });
 
 app.listen(port, "0.0.0.0", () => console.log(`CWDGE admin portal listening on ${port}`));
