@@ -61,6 +61,7 @@ for (const column of cardPaymentColumns) {
   if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
 }
 if (!cardColumns.includes("products_json")) db.exec("ALTER TABLE cards ADD COLUMN products_json TEXT");
+if (!cardColumns.includes("ecommerce_json")) db.exec("ALTER TABLE cards ADD COLUMN ecommerce_json TEXT");
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -186,6 +187,10 @@ app.patch("/api/customer/cards/:id/products", (req, res) => {
   const result = db.prepare("UPDATE cards SET products_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
   if (!result.changes) return res.status(404).json({ error: "Card not found." });
   res.json({ success: true, products });
+});
+app.patch("/api/customer/cards/:id/ecommerce", (req, res) => {
+  db.prepare("UPDATE cards SET ecommerce_json = ? WHERE id = ?").run(JSON.stringify(req.body.products || []), req.params.id);
+  res.json({ success: true });
 });
 app.post("/api/customer/cards/:id/products/attachments", upload.any(), (req, res) => {
   const products = JSON.parse(db.prepare("SELECT products_json FROM cards WHERE id = ?").get(req.params.id)?.products_json || "[]");
