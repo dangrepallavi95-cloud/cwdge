@@ -52,6 +52,10 @@ const cardSocialColumns = ["facebook_url", "twitter_url", "instagram_url", "link
 for (const column of cardSocialColumns) {
   if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
 }
+const cardPaymentColumns = ["paytm_number", "google_pay_number", "phonepe_number", "bank_name", "account_holder", "bank_account_number", "ifsc_code", "account_type", "paytm_qr_url", "google_pay_qr_url", "phonepe_qr_url"];
+for (const column of cardPaymentColumns) {
+  if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
+}
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -166,6 +170,12 @@ app.patch("/api/customer/cards/:id/details", (req, res) => {
 app.patch("/api/customer/cards/:id/social-links", (req, res) => {
   const { facebookUrl, twitterUrl, instagramUrl, linkedinUrl, youtubeUrl, pinterestUrl, video1Url, video2Url, video3Url, video4Url, video5Url } = req.body;
   const result = db.prepare(`UPDATE cards SET facebook_url = ?, twitter_url = ?, instagram_url = ?, linkedin_url = ?, youtube_url = ?, pinterest_url = ?, video_1_url = ?, video_2_url = ?, video_3_url = ?, video_4_url = ?, video_5_url = ? WHERE id = ?`).run(facebookUrl || null, twitterUrl || null, instagramUrl || null, linkedinUrl || null, youtubeUrl || null, pinterestUrl || null, video1Url || null, video2Url || null, video3Url || null, video4Url || null, video5Url || null, req.params.id);
+  if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json({ success: true });
+});
+app.patch("/api/customer/cards/:id/payment-options", (req, res) => {
+  const { paytmNumber, googlePayNumber, phonepeNumber, bankName, accountHolder, bankAccountNumber, ifscCode, accountType, paytmQrUrl, googlePayQrUrl, phonepeQrUrl } = req.body;
+  const result = db.prepare(`UPDATE cards SET paytm_number = ?, google_pay_number = ?, phonepe_number = ?, bank_name = ?, account_holder = ?, bank_account_number = ?, ifsc_code = ?, account_type = ?, paytm_qr_url = ?, google_pay_qr_url = ?, phonepe_qr_url = ? WHERE id = ?`).run(paytmNumber || null, googlePayNumber || null, phonepeNumber || null, bankName || null, accountHolder || null, bankAccountNumber || null, ifscCode || null, accountType || null, paytmQrUrl || null, googlePayQrUrl || null, phonepeQrUrl || null, req.params.id);
   if (!result.changes) return res.status(404).json({ error: "Card not found." });
   res.json({ success: true });
 });
