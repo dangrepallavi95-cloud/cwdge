@@ -13,8 +13,8 @@ The frontend listens on `http://localhost:3000`, and its health endpoint is avai
 Use the local demonstration account to enter the admin portal:
 
 ```text
-Email: admin@cwdge.local
-Password: admin123
+Email: asorkar@gmail.com
+Password: 1234
 ```
 
 Card, customer, and payment data are stored persistently in `data/cwdge.db` and seeded on first startup.

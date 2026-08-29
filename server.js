@@ -62,7 +62,7 @@ const cardQuery = `SELECT cards.*, customers.name AS customer_name, customers.em
 app.get("/health", (_req, res) => res.type("text").send("ok\n"));
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
-  if (email === "admin@cwdge.local" && password === "admin123") return res.json({ name: "Pallavi", role: "Administrator" });
+  if (email === "asorkar@gmail.com" && password === "1234") return res.json({ name: "Asorkar", role: "Administrator" });
   return res.status(401).json({ error: "Use the local demonstration credentials to sign in." });
 });
 app.get("/api/summary", (_req, res) => res.json({
