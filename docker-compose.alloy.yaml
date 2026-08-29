@@ -1,8 +1,9 @@
 services:
   site:
-    image: nginx:1.27-alpine
+    image: node:22-bookworm
+    working_dir: /workspace
     network_mode: host
     restart: unless-stopped
     volumes:
-      - ./public:/usr/share/nginx/html:ro
-      - ./nginx.alloy.conf:/etc/nginx/conf.d/default.conf:ro
+      - .:/workspace
+    command: bash -lc "npm install && node server.js"
