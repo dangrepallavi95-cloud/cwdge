@@ -40,6 +40,11 @@ db.exec(`
   );
 `);
 
+const customerColumns = db.prepare("PRAGMA table_info(customers)").all().map((column) => column.name);
+const cardColumns = db.prepare("PRAGMA table_info(cards)").all().map((column) => column.name);
+if (!customerColumns.includes("password")) db.exec("ALTER TABLE customers ADD COLUMN password TEXT");
+if (!cardColumns.includes("selected_theme")) db.exec("ALTER TABLE cards ADD COLUMN selected_theme TEXT NOT NULL DEFAULT 'Ocean'");
+
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
     db.prepare("INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)").run("Asorkars Soap", "hello@asorkarssoap.in", "+91 98765 10314");
@@ -64,6 +69,28 @@ app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
   if (email === "asorkar@gmail.com" && password === "1234") return res.json({ name: "Asorkar", role: "Administrator" });
   return res.status(401).json({ error: "Use the local demonstration credentials to sign in." });
+});
+app.post("/api/customer/register", (req, res) => {
+  const { name, email, phone, password, companyName } = req.body;
+  if (![name, email, phone, password, companyName].every(Boolean)) return res.status(400).json({ error: "Complete all registration fields." });
+  if (db.prepare("SELECT id FROM customers WHERE email = ?").get(email)) return res.status(409).json({ error: "An account already exists for this email." });
+  const result = db.transaction(() => {
+    const customer = db.prepare("INSERT INTO customers (name, email, phone, password) VALUES (?, ?, ?, ?)").run(name, email, phone, password);
+    const card = db.prepare("INSERT INTO cards (company_name, customer_id, plan, card_status, payment_status, amount) VALUES (?, ?, 'Trial', 'Active', 'Pending', 999)").run(companyName, customer.lastInsertRowid);
+    return { customerId: customer.lastInsertRowid, cardId: card.lastInsertRowid };
+  })();
+  res.status(201).json({ name, email, cardId: result.cardId });
+});
+app.post("/api/customer/login", (req, res) => {
+  const { email, password } = req.body;
+  const customer = db.prepare("SELECT id, name, email FROM customers WHERE email = ? AND password = ?").get(email, password);
+  if (!customer) return res.status(401).json({ error: "Incorrect customer email or password." });
+  res.json(customer);
+});
+app.get("/api/customer/cards", (req, res) => {
+  const customer = db.prepare("SELECT id FROM customers WHERE email = ?").get(req.query.email);
+  if (!customer) return res.status(404).json({ error: "Customer account not found." });
+  res.json(db.prepare("SELECT * FROM cards WHERE customer_id = ? ORDER BY id DESC").all(customer.id));
 });
 app.get("/api/summary", (_req, res) => res.json({
   cards: db.prepare("SELECT COUNT(*) AS count FROM cards").get().count,
@@ -96,6 +123,12 @@ app.post("/api/cards/:id/pay", (req, res) => {
     db.prepare("UPDATE cards SET payment_status = 'Paid' WHERE id = ?").run(card.id);
   })();
   res.json({ success: true });
+});
+app.patch("/api/customer/cards/:id/theme", (req, res) => {
+  const { theme } = req.body;
+  if (!["Ocean", "Forest", "Berry", "Monochrome"].includes(theme)) return res.status(400).json({ error: "Select a valid card theme." });
+  db.prepare("UPDATE cards SET selected_theme = ? WHERE id = ?").run(theme, req.params.id);
+  res.json({ success: true, theme });
 });
 
 app.listen(port, "0.0.0.0", () => console.log(`CWDGE admin portal listening on ${port}`));
