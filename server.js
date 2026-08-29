@@ -99,6 +99,15 @@ app.get("/api/summary", (_req, res) => res.json({
   pending: db.prepare("SELECT COUNT(*) AS count FROM cards WHERE payment_status != 'Paid'").get().count
 }));
 app.get("/api/cards", (_req, res) => res.json(db.prepare(`${cardQuery} ORDER BY cards.id DESC`).all()));
+app.get("/api/cards/export.csv", (_req, res) => {
+  const columns = ["Card ID", "Company Name", "Customer Name", "Customer Email", "Customer Phone", "Plan", "Theme", "Card Status", "Payment Status", "Amount (INR)", "Created At"];
+  const csvValue = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  const rows = db.prepare(`${cardQuery} ORDER BY cards.id DESC`).all().map((card) => [
+    card.id, card.company_name, card.customer_name, card.customer_email, card.customer_phone,
+    card.plan, card.selected_theme, card.card_status, card.payment_status, card.amount, card.created_at
+  ].map(csvValue).join(","));
+  res.attachment("cwdge-managed-cards.csv").type("text/csv").send([columns.map(csvValue).join(","), ...rows].join("\n"));
+});
 app.get("/api/customers", (_req, res) => res.json(db.prepare("SELECT * FROM customers ORDER BY id DESC").all()));
 app.get("/api/payments", (_req, res) => res.json(db.prepare("SELECT payments.*, cards.company_name FROM payments JOIN cards ON cards.id = payments.card_id ORDER BY paid_at DESC").all()));
 app.get("/api/search", (req, res) => {
