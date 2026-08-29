@@ -116,5 +116,19 @@
       document.querySelector("#productsForm").onsubmit = async (event) => { event.preventDefault(); const fields = new FormData(event.target); const products = Array.from({length:10},(_,i)=>({name:fields.get(`name${i}`)})).filter(p=>p.name); await api(`/api/customer/cards/${customerSession.cardId}/products`,{method:"PATCH",body:JSON.stringify({products})}); document.querySelector("#productsView").hidden=true; ecommerce.hidden=false; };
       document.querySelector("#ecommerceForm").onsubmit = async (event) => { event.preventDefault(); const f=new FormData(event.target); const products=Array.from({length:20},(_,i)=>({name:f.get(`name${i}`),mrp:f.get(`mrp${i}`),price:f.get(`price${i}`),tax:f.get(`tax${i}`)})).filter(p=>Object.values(p).some(Boolean)); await api(`/api/customer/cards/${customerSession.cardId}/ecommerce`,{method:"PATCH",body:JSON.stringify({products})}); document.querySelector("#ecommerceStatus").textContent="Ecommerce catalog saved"; };
     </script>
+    <script>
+      document.querySelectorAll(".stepper .step").forEach((tab) => tab.onclick = (event) => {
+        event.preventDefault();
+        const label = tab.textContent;
+        if (label.includes("Select theme") || label.includes("Company details") || label.includes("Social links")) {
+          openCustomerPage("#customerView");
+          showCustomerStep(label.includes("Select") ? "theme" : label.includes("Company") ? "details" : "social");
+        } else if (label.includes("Payment")) openCustomerPage("#paymentView");
+        else if (label.includes("Products")) openCustomerPage("#productsView");
+        else if (label.includes("Ecommerce")) openCustomerPage("#ecommerceView");
+        else if (label.includes("Image gallery")) openCustomerPage("#galleryView");
+        else if (label.includes("Preview")) openCustomerPage("#previewView");
+      });
+    </script>
   </body>
 </html>
