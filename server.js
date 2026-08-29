@@ -48,6 +48,10 @@ const cardProfileColumns = ["logo_url", "first_name", "last_name", "designation"
 for (const column of cardProfileColumns) {
   if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
 }
+const cardSocialColumns = ["facebook_url", "twitter_url", "instagram_url", "linkedin_url", "youtube_url", "pinterest_url", "video_1_url", "video_2_url", "video_3_url", "video_4_url", "video_5_url"];
+for (const column of cardSocialColumns) {
+  if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
+}
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -158,6 +162,12 @@ app.patch("/api/customer/cards/:id/details", (req, res) => {
   })();
   if (!result.changes) return res.status(404).json({ error: "Card not found." });
   res.json(db.prepare("SELECT * FROM cards WHERE id = ?").get(req.params.id));
+});
+app.patch("/api/customer/cards/:id/social-links", (req, res) => {
+  const { facebookUrl, twitterUrl, instagramUrl, linkedinUrl, youtubeUrl, pinterestUrl, video1Url, video2Url, video3Url, video4Url, video5Url } = req.body;
+  const result = db.prepare(`UPDATE cards SET facebook_url = ?, twitter_url = ?, instagram_url = ?, linkedin_url = ?, youtube_url = ?, pinterest_url = ?, video_1_url = ?, video_2_url = ?, video_3_url = ?, video_4_url = ?, video_5_url = ? WHERE id = ?`).run(facebookUrl || null, twitterUrl || null, instagramUrl || null, linkedinUrl || null, youtubeUrl || null, pinterestUrl || null, video1Url || null, video2Url || null, video3Url || null, video4Url || null, video5Url || null, req.params.id);
+  if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json({ success: true });
 });
 
 app.listen(port, "0.0.0.0", () => console.log(`CWDGE admin portal listening on ${port}`));
