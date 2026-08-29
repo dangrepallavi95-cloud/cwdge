@@ -56,6 +56,7 @@ const cardPaymentColumns = ["paytm_number", "google_pay_number", "phonepe_number
 for (const column of cardPaymentColumns) {
   if (!cardColumns.includes(column)) db.exec(`ALTER TABLE cards ADD COLUMN ${column} TEXT`);
 }
+if (!cardColumns.includes("products_json")) db.exec("ALTER TABLE cards ADD COLUMN products_json TEXT");
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -178,6 +179,12 @@ app.patch("/api/customer/cards/:id/payment-options", (req, res) => {
   const result = db.prepare(`UPDATE cards SET paytm_number = ?, google_pay_number = ?, phonepe_number = ?, bank_name = ?, account_holder = ?, bank_account_number = ?, ifsc_code = ?, account_type = ?, paytm_qr_url = ?, google_pay_qr_url = ?, phonepe_qr_url = ? WHERE id = ?`).run(paytmNumber || null, googlePayNumber || null, phonepeNumber || null, bankName || null, accountHolder || null, bankAccountNumber || null, ifscCode || null, accountType || null, paytmQrUrl || null, googlePayQrUrl || null, phonepeQrUrl || null, req.params.id);
   if (!result.changes) return res.status(404).json({ error: "Card not found." });
   res.json({ success: true });
+});
+app.patch("/api/customer/cards/:id/products", (req, res) => {
+  const products = Array.isArray(req.body.products) ? req.body.products.slice(0, 10) : [];
+  const result = db.prepare("UPDATE cards SET products_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
+  if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json({ success: true, products });
 });
 
 app.listen(port, "0.0.0.0", () => console.log(`CWDGE admin portal listening on ${port}`));
