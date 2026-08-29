@@ -1,6 +1,6 @@
 # CWDGE
 
-This repository includes a database-backed digital-card admin portal and an Alloy-compatible Docker Compose setup.
+This repository includes a PHP 8.3, SQLite-backed digital-card admin portal and an Alloy-compatible Docker Compose setup.
 
 ## Run locally
 
@@ -19,4 +19,4 @@ Password: 123456789
 
 Card, customer, and payment data are stored persistently in `data/cwdge.db` and seeded on first startup.
 
-The Compose service uses host networking and does not publish Docker ports. Alloy proxies its preview at `http://localhost:8080` to port `3000`.
+The Compose service uses host networking and does not publish Docker ports. Alloy connects to the PHP service on port `3000`.

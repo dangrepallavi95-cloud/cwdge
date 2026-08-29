@@ -1,9 +1,11 @@
 services:
   site:
-    image: node:22-bookworm
+    build:
+      context: .
+      dockerfile: Dockerfile
     working_dir: /workspace
     network_mode: host
     restart: unless-stopped
     volumes:
       - .:/workspace
-    command: bash -lc "npm install && node server.js"
+    command: php -S 0.0.0.0:3000 -t public public/router.php
