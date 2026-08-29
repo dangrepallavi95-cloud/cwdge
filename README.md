@@ -13,7 +13,7 @@ The frontend listens on `http://localhost:3000`, and its health endpoint is avai
 Use the local demonstration account to enter the admin portal:
 
 ```text
-Email: asorkar@gmail.com
+Email: admin@admin.com
 Password: 123456789
 ```
 
