@@ -86,6 +86,8 @@
       const openCustomerPage = (id) => { document.querySelectorAll(".customer-app").forEach(view => view.hidden = true); document.querySelector(id).hidden = false; };
       [...customerTabs.children].forEach((tab) => { const label=tab.textContent; if(label.includes("Payment")) tab.onclick=()=>openCustomerPage("#paymentView"); if(label.includes("Products")) tab.onclick=()=>openCustomerPage("#productsView"); if(label.includes("Image gallery")) { tab.href="#gallery"; tab.onclick=(e)=>{e.preventDefault();openCustomerPage("#galleryView");}; } if(label.includes("Preview")) { tab.href="#preview"; tab.onclick=(e)=>{e.preventDefault();openCustomerPage("#previewView");}; }});
       document.querySelector("#previewButton").onclick=()=>openCustomerPage("#previewView");
+      const showPreview = async () => { const cards = await api(`/api/customer/cards?email=${encodeURIComponent(customerSession.email)}`); const card = cards[0]; document.querySelector("#finalCompany").textContent = card.company_name || "Your company"; document.querySelector("#finalName").textContent = `${card.first_name || customerSession.name}${card.last_name ? ` ${card.last_name}` : ""}${card.designation ? ` · ${card.designation}` : ""}`; document.querySelector("#finalAbout").textContent = card.about_us || "No company description added yet."; document.querySelector("#previewView .details-card").insertAdjacentHTML("beforeend", `<h2>Contact</h2><p class="muted">${card.phone || ""}<br>${card.address || ""}</p><h2>Products & services</h2><p class="muted">${JSON.parse(card.products_json || "[]").map(p => p.name).filter(Boolean).join(" · ") || "No products added yet."}</p><h2>Ecommerce</h2><p class="muted">${JSON.parse(card.ecommerce_json || "[]").map(p => p.name).filter(Boolean).join(" · ") || "No ecommerce products added yet."}</p>`); openCustomerPage("#previewView"); };
+      document.querySelectorAll(".stepper .step").forEach((tab) => { if (tab.textContent.includes("Preview")) tab.onclick = (event) => { event.preventDefault(); showPreview(); }; }); document.querySelector("#previewButton").onclick = showPreview;
       document.querySelectorAll("[required]").forEach((field) => field.required = false);
       document.querySelector("#paymentOptionsForm").onsubmit = async (event) => { event.preventDefault(); const fields = Object.fromEntries(new FormData(event.target)); await api(`/api/customer/cards/${customerSession.cardId}/payment-options`, { method: "PATCH", body: JSON.stringify(fields) }); document.querySelector("#productFields").innerHTML = Array.from({ length: 10 }, (_, i) => `<div><label>Product / service ${i + 1}</label><input name="name${i}" placeholder="Product or service name"><label>Product image (optional, 250 KB max)</label><input name="productImage${i}" type="file" accept="image/*"></div>`).join(""); document.querySelector("#paymentView").hidden = true; document.querySelector("#productsView").hidden = false; };
       document.querySelector("#backToPayment").onclick = () => { document.querySelector("#productsView").hidden = true; document.querySelector("#paymentView").hidden = false; };
@@ -127,7 +129,7 @@
         else if (label.includes("Products")) openCustomerPage("#productsView");
         else if (label.includes("Ecommerce")) openCustomerPage("#ecommerceView");
         else if (label.includes("Image gallery")) openCustomerPage("#galleryView");
-        else if (label.includes("Preview")) openCustomerPage("#previewView");
+        else if (label.includes("Preview")) showPreview();
       });
     </script>
   </body>
