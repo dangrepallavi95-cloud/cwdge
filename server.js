@@ -42,6 +42,22 @@ db.exec(`
     paid_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(card_id) REFERENCES cards(id)
   );
+  CREATE TABLE IF NOT EXISTS enquiries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    card_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    message TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(card_id) REFERENCES cards(id)
+  );
+  CREATE TABLE IF NOT EXISTS admin_settings (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    display_name TEXT NOT NULL DEFAULT 'Asorkar',
+    email_notifications TEXT NOT NULL DEFAULT 'Payment and card status updates',
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 const customerColumns = db.prepare("PRAGMA table_info(customers)").all().map((column) => column.name);
@@ -62,6 +78,8 @@ for (const column of cardPaymentColumns) {
 }
 if (!cardColumns.includes("products_json")) db.exec("ALTER TABLE cards ADD COLUMN products_json TEXT");
 if (!cardColumns.includes("ecommerce_json")) db.exec("ALTER TABLE cards ADD COLUMN ecommerce_json TEXT");
+if (!cardColumns.includes("gallery_json")) db.exec("ALTER TABLE cards ADD COLUMN gallery_json TEXT");
+db.prepare("INSERT OR IGNORE INTO admin_settings (id) VALUES (1)").run();
 
 if (db.prepare("SELECT COUNT(*) AS count FROM customers").get().count === 0) {
   const seed = db.transaction(() => {
@@ -127,6 +145,12 @@ app.get("/api/cards/export.csv", (_req, res) => {
 });
 app.get("/api/customers", (_req, res) => res.json(db.prepare("SELECT * FROM customers ORDER BY id DESC").all()));
 app.get("/api/payments", (_req, res) => res.json(db.prepare("SELECT payments.*, cards.company_name FROM payments JOIN cards ON cards.id = payments.card_id ORDER BY paid_at DESC").all()));
+app.get("/api/admin/settings", (_req, res) => res.json(db.prepare("SELECT display_name, email_notifications FROM admin_settings WHERE id = 1").get()));
+app.patch("/api/admin/settings", (req, res) => {
+  const { displayName, emailNotifications } = req.body;
+  db.prepare("UPDATE admin_settings SET display_name = ?, email_notifications = ?, updated_at = CURRENT_TIMESTAMP WHERE id = 1").run(displayName || "Asorkar", emailNotifications || "Payment and card status updates");
+  res.json(db.prepare("SELECT display_name, email_notifications FROM admin_settings WHERE id = 1").get());
+});
 app.get("/api/search", (req, res) => {
   const term = `%${String(req.query.q || "").trim()}%`;
   if (term === "%%") return res.json([]);
@@ -189,8 +213,10 @@ app.patch("/api/customer/cards/:id/products", (req, res) => {
   res.json({ success: true, products });
 });
 app.patch("/api/customer/cards/:id/ecommerce", (req, res) => {
-  db.prepare("UPDATE cards SET ecommerce_json = ? WHERE id = ?").run(JSON.stringify(req.body.products || []), req.params.id);
-  res.json({ success: true });
+  const products = Array.isArray(req.body.products) ? req.body.products.slice(0, 20) : [];
+  const result = db.prepare("UPDATE cards SET ecommerce_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
+  if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json({ success: true, products });
 });
 app.post("/api/customer/cards/:id/products/attachments", upload.any(), (req, res) => {
   const products = JSON.parse(db.prepare("SELECT products_json FROM cards WHERE id = ?").get(req.params.id)?.products_json || "[]");
@@ -198,5 +224,30 @@ app.post("/api/customer/cards/:id/products/attachments", upload.any(), (req, res
   db.prepare("UPDATE cards SET products_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
   res.json({ success: true, products });
 });
+app.post("/api/customer/cards/:id/ecommerce/attachments", upload.any(), (req, res) => {
+  const card = db.prepare("SELECT ecommerce_json FROM cards WHERE id = ?").get(req.params.id);
+  if (!card) return res.status(404).json({ error: "Card not found." });
+  const products = JSON.parse(card.ecommerce_json || "[]");
+  for (const file of req.files) {
+    const index = Number(file.fieldname.replace("image", ""));
+    if (Number.isInteger(index) && products[index]) products[index].image = `/uploads/${file.filename}`;
+  }
+  db.prepare("UPDATE cards SET ecommerce_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
+  res.json({ success: true, products });
+});
+app.post("/api/customer/cards/:id/gallery", upload.array("images", 10), (req, res) => {
+  if (!db.prepare("SELECT id FROM cards WHERE id = ?").get(req.params.id)) return res.status(404).json({ error: "Card not found." });
+  const images = req.files.map((file) => `/uploads/${file.filename}`);
+  db.prepare("UPDATE cards SET gallery_json = ? WHERE id = ?").run(JSON.stringify(images), req.params.id);
+  res.json({ success: true, images });
+});
+app.post("/api/cards/:id/enquiries", (req, res) => {
+  const { name, email, phone, message } = req.body;
+  if (!name || !email || !message) return res.status(400).json({ error: "Name, email, and message are required." });
+  if (!db.prepare("SELECT id FROM cards WHERE id = ?").get(req.params.id)) return res.status(404).json({ error: "Card not found." });
+  const result = db.prepare("INSERT INTO enquiries (card_id, name, email, phone, message) VALUES (?, ?, ?, ?, ?)").run(req.params.id, name, email, phone || null, message);
+  res.status(201).json({ id: result.lastInsertRowid });
+});
+app.get("/api/cards/:id/enquiries", (req, res) => res.json(db.prepare("SELECT * FROM enquiries WHERE card_id = ? ORDER BY created_at DESC, id DESC").all(req.params.id)));
 
 app.listen(port, "0.0.0.0", () => console.log(`CWDGE admin portal listening on ${port}`));

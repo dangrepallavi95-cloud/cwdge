@@ -50,7 +50,7 @@
       document.querySelectorAll(".customer-app .stepper").forEach((tabs) => { const header = tabs.closest(".customer-app").querySelector(".customer-top"); if (header) header.insertAdjacentElement("afterend", tabs); });
       const sharedTabs = '<nav class="stepper"><span class="step">1. Select theme</span><span class="step">2. Company details</span><span class="step">3. Social links</span><span class="step">4. Payment options</span><span class="step">5. Products &amp; services</span><span class="step">6. Ecommerce</span><span class="step">7. Image gallery</span><span class="step">8. Preview card</span></nav>';
       ["#paymentView .customer-main", "#productsView .customer-main"].forEach((selector) => document.querySelector(selector)?.insertAdjacentHTML("afterbegin", sharedTabs));
-      const galleryView = document.createElement("section"); galleryView.id="galleryView"; galleryView.className="customer-app"; galleryView.hidden=true; galleryView.innerHTML=`<main class="customer-main">${sharedTabs}<div class="page-head"><div><h1>Image gallery</h1><p>Add up to 10 optional images to your card.</p></div></div><div class="panel details-card"><input type="file" accept="image/*" multiple><p class="muted">Gallery uploads are optional.</p><button class="create" id="previewButton">Complete & Preview</button></div></main>`; document.body.append(galleryView);
+      const galleryView = document.createElement("section"); galleryView.id="galleryView"; galleryView.className="customer-app"; galleryView.hidden=true; galleryView.innerHTML=`<main class="customer-main">${sharedTabs}<div class="page-head"><div><h1>Image gallery</h1><p>Add up to 10 optional images to your card.</p></div></div><div class="panel details-card"><input type="file" accept="image/*" multiple><p class="muted" id="gallerySaved">Gallery uploads are optional.</p><span class="muted" id="galleryStatus"></span><button class="create" id="previewButton">Complete & Preview</button></div></main>`; document.body.append(galleryView);
       const previewView = document.createElement("section"); previewView.id="previewView"; previewView.className="customer-app"; previewView.hidden=true; previewView.innerHTML=`<main class="customer-main">${sharedTabs}<div class="panel details-card"><span class="eyebrow">CustomerWala digital card</span><h1 id="finalCompany">Your company</h1><p id="finalName" class="muted">Your contact details will appear here.</p><h2>About us</h2><p id="finalAbout" class="muted">Complete your company details to add your story.</p><hr><h2>Contact us</h2><form id="enquiryForm" class="details-grid"><div><label>Your name</label><input name="name" placeholder="Your name"></div><div><label>Email address</label><input name="email" type="email" placeholder="you@example.com"></div><div><label>Phone number</label><input name="phone" placeholder="Phone number"></div><div class="wide"><label>Message</label><textarea name="message" placeholder="How can we help?"></textarea></div><div class="wide"><span id="enquiryStatus" class="muted"></span><button class="create">Send enquiry</button></div></form></div></main>`; document.body.append(previewView); document.querySelector("#enquiryForm").onsubmit=(event)=>{event.preventDefault();document.querySelector("#enquiryStatus").textContent="Thank you. Your enquiry has been sent.";event.target.reset();};
       const app = { page: "dashboard", cards: [], customers: [], payments: [], summary: {} };
       let authMode = "admin";
@@ -139,5 +139,101 @@
         else if (label.includes("Preview")) showPreview();
       });
     </script>
-  </body>
+    <script>
+      // Persist uploads separately so binary files never need to be embedded in card JSON.
+      const originalLoginSubmit = $("#loginForm").onsubmit;
+      const productFields = (products = []) => $("#productFields").innerHTML = Array.from({ length: 10 }, (_, i) => {
+        const product = products[i] || {};
+        return `<div><label>Product / service ${i + 1}</label><input name="name${i}" value="${product.name || ""}" placeholder="Product or service name"><label>Product image (optional, 250 KB max)</label><input name="productImage${i}" type="file" accept="image/*">${product.image ? `<a class="muted" href="${product.image}" target="_blank">Current image</a>` : ""}</div>`;
+      }).join("");
+      const ecommerceFields = (products = []) => document.querySelectorAll("#ecommerceForm .details-grid > div").forEach((field, i) => {
+        const product = products[i] || {};
+        ["name", "mrp", "price", "tax"].forEach((name) => field.querySelector(`[name="${name}${i}"]`).value = product[name] || "");
+        const image = field.querySelector("a");
+        if (image) image.remove();
+        if (product.image) field.insertAdjacentHTML("beforeend", `<a class="muted" href="${product.image}" target="_blank">Current image</a>`);
+      });
+      const hydrateCustomerFiles = (card) => {
+        productFields(JSON.parse(card.products_json || "[]"));
+        ecommerceFields(JSON.parse(card.ecommerce_json || "[]"));
+        const images = JSON.parse(card.gallery_json || "[]");
+        $("#gallerySaved").textContent = images.length ? `${images.length} image${images.length === 1 ? "" : "s"} currently saved.` : "Gallery uploads are optional.";
+      };
+      $("#loginForm").onsubmit = async (event) => {
+        await originalLoginSubmit(event);
+        if (!customerSession?.email) return;
+        const cards = await api(`/api/customer/cards?email=${encodeURIComponent(customerSession.email)}`);
+        if (cards[0]) hydrateCustomerFiles(cards[0]);
+      };
+      $("#galleryView input[type=file]").name = "images";
+      $("#previewButton").onclick = async () => {
+        const files = $("#galleryView input[type=file]").files;
+        try {
+          if (files.length) {
+            const body = new FormData();
+            Array.from(files).slice(0, 10).forEach((file) => body.append("images", file));
+            const response = await fetch(`/api/customer/cards/${customerSession.cardId}/gallery`, { method: "POST", body });
+            if (!response.ok) throw new Error((await response.json()).error || "Gallery upload failed");
+            const result = await response.json();
+            $("#gallerySaved").textContent = `${result.images.length} image${result.images.length === 1 ? "" : "s"} saved.`;
+          }
+          await showPreview();
+        } catch (error) { $("#galleryStatus").textContent = error.message; }
+      };
+      $("#productsForm").onsubmit = async (event) => {
+        event.preventDefault();
+        const fields = new FormData(event.target);
+        const products = [];
+        const attachments = new FormData();
+        Array.from({ length: 10 }, (_, i) => {
+          const name = fields.get(`name${i}`);
+          if (!name) return;
+          const productIndex = products.length;
+          products.push({ name, image: "" });
+          const file = fields.get(`productImage${i}`);
+          if (file?.size) attachments.append(`productImage${productIndex}`, file);
+        });
+        await api(`/api/customer/cards/${customerSession.cardId}/products`, { method: "PATCH", body: JSON.stringify({ products }) });
+        if ([...attachments.keys()].length) await fetch(`/api/customer/cards/${customerSession.cardId}/products/attachments`, { method: "POST", body: attachments });
+        $("#productsStatus").textContent = "Products and images saved";
+        $("#productsView").hidden = true;
+        $("#ecommerceView").hidden = false;
+      };
+      $("#ecommerceForm").onsubmit = async (event) => {
+        event.preventDefault();
+        const fields = new FormData(event.target);
+        const products = [];
+        const attachments = new FormData();
+        Array.from({ length: 20 }, (_, i) => {
+          const product = { name: fields.get(`name${i}`), mrp: fields.get(`mrp${i}`), price: fields.get(`price${i}`), tax: fields.get(`tax${i}`) };
+          if (!Object.values(product).some(Boolean)) return;
+          const productIndex = products.length;
+          products.push(product);
+          const file = fields.get(`image${i}`);
+          if (file?.size) attachments.append(`image${productIndex}`, file);
+        });
+        await api(`/api/customer/cards/${customerSession.cardId}/ecommerce`, { method: "PATCH", body: JSON.stringify({ products }) });
+        if ([...attachments.keys()].length) await fetch(`/api/customer/cards/${customerSession.cardId}/ecommerce/attachments`, { method: "POST", body: attachments });
+        $("#ecommerceStatus").textContent = "Ecommerce products and images saved";
+        $("#ecommerceView").hidden = true;
+        $("#galleryView").hidden = false;
+      };
+      $("#enquiryForm").onsubmit = async (event) => {
+        event.preventDefault();
+        try {
+          await api(`/api/cards/${customerSession.cardId}/enquiries`, { method: "POST", body: JSON.stringify(Object.fromEntries(new FormData(event.target))) });
+          $("#enquiryStatus").textContent = "Thank you. Your enquiry has been sent.";
+          event.target.reset();
+        } catch (error) { $("#enquiryStatus").textContent = error.message; }
+      };
+      const originalRender = render;
+      render = function () {
+        originalRender();
+        if (app.page !== "settings") return;
+        $("#screen").innerHTML = `${pageHeader("My account", "Administrator and notification preferences.", false)}<form class="panel" id="settingsForm" style="padding:24px; max-width:680px"><h2>Administrator profile</h2><p class="muted">Manage the local demonstration administrator preferences.</p><label>Display name</label><input name="displayName" value="${app.settings?.display_name || "Asorkar"}"><label>Email notifications</label><select name="emailNotifications"><option${app.settings?.email_notifications === "No email notifications" ? "" : " selected"}>Payment and card status updates</option><option${app.settings?.email_notifications === "No email notifications" ? " selected" : ""}>No email notifications</option></select><span class="muted" id="settingsStatus"></span><button class="primary">Save changes</button></form>`;
+        $("#settingsForm").onsubmit = async (event) => { event.preventDefault(); app.settings = await api("/api/admin/settings", { method: "PATCH", body: JSON.stringify(Object.fromEntries(new FormData(event.target))) }); $("#userName").textContent = app.settings.display_name; $("#settingsStatus").textContent = "Settings saved"; };
+        if (!app.settings) api("/api/admin/settings").then((settings) => { app.settings = settings; render(); });
+      };
+    </script>
+    </body>
 </html>
