@@ -2,11 +2,15 @@ const express = require("express");
 const Database = require("better-sqlite3");
 const fs = require("fs");
 const path = require("path");
+const multer = require("multer");
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
 const dataDirectory = path.join(__dirname, "data");
 fs.mkdirSync(dataDirectory, { recursive: true });
+const uploadDirectory = path.join(__dirname, "public", "uploads");
+fs.mkdirSync(uploadDirectory, { recursive: true });
+const upload = multer({ storage: multer.diskStorage({ destination: uploadDirectory, filename: (_req, file, callback) => callback(null, `${Date.now()}-${file.originalname.replace(/[^a-zA-Z0-9._-]/g, "-")}`) }), limits: { fileSize: 250 * 1024 } });
 
 const db = new Database(path.join(dataDirectory, "cwdge.db"));
 db.pragma("journal_mode = WAL");
@@ -184,6 +188,12 @@ app.patch("/api/customer/cards/:id/products", (req, res) => {
   const products = Array.isArray(req.body.products) ? req.body.products.slice(0, 10) : [];
   const result = db.prepare("UPDATE cards SET products_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
   if (!result.changes) return res.status(404).json({ error: "Card not found." });
+  res.json({ success: true, products });
+});
+app.post("/api/customer/cards/:id/products/attachments", upload.any(), (req, res) => {
+  const products = JSON.parse(db.prepare("SELECT products_json FROM cards WHERE id = ?").get(req.params.id)?.products_json || "[]");
+  for (const file of req.files) { const index = Number(file.fieldname.replace("productImage", "")); if (Number.isInteger(index) && products[index]) products[index].image = `/uploads/${file.filename}`; }
+  db.prepare("UPDATE cards SET products_json = ? WHERE id = ?").run(JSON.stringify(products), req.params.id);
   res.json({ success: true, products });
 });
 
