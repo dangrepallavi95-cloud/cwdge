@@ -80,16 +80,16 @@
       .pricing-copy .eyebrow { display: none; }
       .pricing-copy h2 { margin-bottom: 17px; color: #10a1b6; font-size: 23px; font-weight: 400; letter-spacing: 0; }
       .pricing-copy p:last-child { max-width: 450px; margin: 23px 0 0; color: #556284; font-size: 17px; line-height: 1.7; }
-      .price-card { width: 225px; max-width: 100%; margin: auto; overflow: hidden; border: 1px solid #e2e2e2; border-radius: 0; background: #fff; color: #2b405a; box-shadow: 0 1px 5px rgba(0, 0, 0, .16); text-align: left; }
-      .price-card .tag { display: block; margin: 0; padding: 12px 5px; border-radius: 0; background: #2fc7a8; color: #fff; font-size: 15px; font-weight: 400; letter-spacing: 0; text-align: center; text-transform: none; }
+      .price-card { width: 450px; max-width: 100%; margin: auto; overflow: hidden; border: 1px solid #e2e2e2; border-radius: 0; background: #fff; color: #182336; box-shadow: 0 1px 5px rgba(0, 0, 0, .16); text-align: left; }
+      .price-card .tag { display: block; margin: 0; padding: 25px 12px; border-radius: 0; background: #2fc7a8; color: #fff; font-size: 29px; font-weight: 400; letter-spacing: 0; text-align: center; text-transform: none; }
       .price-card h3 { margin-bottom: 6px; font-size: 29px; }
-      .price { margin: 0; padding: 13px 5px 16px; background: #405e8a; color: #fff; font-size: 16px; font-weight: 400; letter-spacing: 0; text-align: center; }
-      .price small { font-size: 16px; font-weight: 400; letter-spacing: normal; }
-      .checks { display: block; margin: 11px 0 12px; padding: 0; list-style: none; font-size: 8px; }
-      .checks li { min-height: 24px; padding: 6px 9px 5px 18px; line-height: 1.2; }
-      .checks li:nth-child(even) { background: #e9edf2; }
-      .checks li::before { display: inline-grid; width: 12px; height: 12px; place-items: center; margin-right: 6px; border-radius: 50%; background: #078d16; color: #fff; content: "\2713"; font-size: 8px; font-weight: 800; vertical-align: -2px; }
-      .price-card .button { display: block; width: auto; margin: 18px 31px; padding: 9px 7px; border-radius: 2px; background: #ff5959; box-shadow: none; color: #fff; font-size: 12px; font-weight: 400; text-align: center; }
+      .price { margin: 0; padding: 26px 10px 31px; background: #405e8a; color: #fff; font-size: 30px; font-weight: 400; letter-spacing: 0; text-align: center; }
+      .price small { font-size: 30px; font-weight: 400; letter-spacing: normal; }
+      .checks { display: block; margin: 16px 0 0; padding: 0; list-style: none; font-size: 17px; }
+      .checks li { height: 45px; padding: 10px 18px 9px 37px; line-height: 1.4; }
+      .checks li:nth-child(odd) { background: #e9edf2; }
+      .checks li::before { display: inline-grid; width: 23px; height: 23px; place-items: center; margin-right: 14px; border-radius: 50%; background: #078d16; color: #fff; content: "\2713"; font-size: 14px; font-weight: 800; vertical-align: -4px; }
+      .price-card .button { display: block; width: auto; margin: 38px 63px 25px; padding: 16px 12px; border-radius: 3px; background: #ff5959; box-shadow: none; color: #fff; font-size: 24px; font-weight: 400; text-align: center; }
       .price-card .button:hover { background: #ed4949; box-shadow: none; transform: none; }
 
       .templates { padding: 66px 0 86px; background: #fff; color: #151515; }
@@ -221,7 +221,7 @@
       @media (max-width: 850px) {
           .about.shell, .pricing, .reseller-inner, .services { grid-template-columns: 1fr; gap: 42px; }
          .about-art { width: min(100%, 620px); margin: auto; }
-         .price-card { max-width: 100%; }
+          .price-card { max-width: 100%; }
           .benefits-grid, .features { width: min(100% - 48px, 760px); }
           .benefit-list { grid-template-columns: repeat(3, 1fr); }
           .benefit:nth-child(7) { grid-column: auto; }
@@ -269,7 +269,14 @@
          .services::before { height: 150px; }
          .service-list { grid-template-columns: 1fr; gap: 15px; max-width: 310px; margin: auto; }
          .service { min-height: 235px; }
-          .pricing { min-height: 0; padding: 50px 0 70px; }
+           .pricing { min-height: 0; padding: 50px 0 70px; }
+           .price-card .tag { padding: 20px 12px; font-size: clamp(21px, 7vw, 29px); }
+           .price { padding: 22px 10px 26px; font-size: clamp(24px, 7vw, 30px); }
+           .price small { font-size: inherit; }
+           .checks { font-size: clamp(14px, 4.2vw, 17px); }
+           .checks li { height: auto; min-height: 42px; padding: 10px 14px 8px 20px; }
+           .checks li::before { width: 20px; height: 20px; margin-right: 10px; font-size: 12px; }
+           .price-card .button { margin: 30px 28px 24px; padding: 15px 10px; font-size: clamp(19px, 6vw, 24px); }
           .benefits { padding: 60px 0 66px; }
           .benefits-grid, .features { width: min(100% - 32px, 560px); }
           .benefits-copy h2 { font-size: 28px; }
@@ -321,7 +328,7 @@
 
     <section class="how" aria-labelledby="how-heading"><div class="shell"><div class="section-heading"><p class="eyebrow">How It Works?</p><h2 id="how-heading">How It Works?</h2></div><div class="steps"><article class="step"><span class="step-icon" aria-hidden="true">&#9998;</span><div class="step-number">1. Create your Card</div><p>Design your digital visiting card in 2 minutes.</p></article><article class="step"><span class="step-icon" aria-hidden="true">&#8615;</span><div class="step-number">2. Save to your Device</div><p>Digital Visiting Card is accessible anytime from anywhere.</p></article><article class="step"><span class="step-icon" aria-hidden="true">&#9679;</span><div class="step-number">3. Share with friends and colleagues</div><p>Through a variety of channels.</p></article></div></div></section>
 
-    <section class="pricing shell" aria-labelledby="pricing-heading"><div class="pricing-copy"><p class="eyebrow">Affordable prices plus more</p><h2 id="pricing-heading">Affordable prices plus more</h2></div><article class="price-card"><span class="tag">Digital Card with Ecommerce</span><div class="price">Rs 499 <small>Only</small></div><ul class="checks"><li>Share cards with anyone, Unlimited times</li><li>Update card Unlimited times</li><li>Ecommerce Online Store</li><li>Profile Photo</li><li>Select design from available templates</li><li>5 Products or Services</li><li>10 Photos in Gallery</li><li>Social Media Links</li><li>5 Videos in Youtube Video Gallery</li><li>Products with images</li><li>Payment Section</li><li>Contact Form Included</li></ul><a class="button" href="/customer-login?mode=register">Create Now Online &gt;&gt;</a></article></section>
+    <section class="pricing shell" aria-labelledby="pricing-heading"><div class="pricing-copy"><p class="eyebrow">Affordable prices plus more</p><h2 id="pricing-heading">Affordable prices plus more</h2></div><article class="price-card"><span class="tag">Digital Card with Ecommerce</span><div class="price">&#8377; 499 <small>Only</small></div><ul class="checks"><li>Share cards with anyone, Unlimited times</li><li>Update card Unlimited times.</li><li>Ecommerce Online Store</li><li>Profile Photo</li><li>Select design from available templates</li><li>5 Products or Services</li><li>10 Photos in Gallery</li><li>Social Media Links</li><li>5 Videos in Youtube Video Gallery</li><li>Products with images.</li><li>Payment Section</li><li>Contact Form Included</li></ul><a class="button" href="/customer-login?mode=register">Create Now Online &gt;&gt;</a></article></section>
 
     <section class="templates" aria-labelledby="templates-heading"><div class="shell"><div class="templates-heading"><h2 id="templates-heading">Sample vCard Templates with Live Preview</h2></div><div class="template-grid">
       <a class="template" href="/customer-login?mode=register" aria-label="Select Ocean template"><div class="phone"><div class="phone-screen"><div class="mini-logo">C</div><div class="mini-name">COASTAL STUDIO</div><div class="mini-role">Creative director</div><div class="mini-actions"><i></i><i></i><i></i><i></i></div><div class="mini-card"><b></b><span></span><b></b></div></div></div><span class="select-label">Select</span></a>
