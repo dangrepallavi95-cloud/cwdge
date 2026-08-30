@@ -58,27 +58,39 @@
       .art-cat { z-index: 4; right: 13%; bottom: 12%; width: 38px; height: 82px; border-radius: 50% 50% 13px 13px; background: #fffdf8; box-shadow: -31px 52px 0 7px #e8e5cf, -47px 39px 0 5px #fffdf8; }
       .art-cat::before { position: absolute; top: -13px; left: 5px; width: 0; height: 0; border-right: 10px solid transparent; border-bottom: 16px solid #fffdf8; border-left: 10px solid transparent; content: ""; }
 
-      .how { padding: 96px 0 116px; background: #f3f6ff; }
+      .how { position: relative; min-height: 290px; padding: 47px 0 0; background: linear-gradient(180deg, #d9f4ff 0, #0a9fdf 35%, #079cdc 52%, #ffa01c 83%, #fff 100%); }
+      .how .shell { width: min(100% - 46px, 1775px); }
+      .how .section-heading { max-width: none; margin: 0 0 36px; text-align: center; }
+      .how .eyebrow { display: none; }
+      .how h2 { color: #fff; font-size: 29px; font-weight: 700; letter-spacing: -.025em; text-shadow: 0 1px 1px rgba(0, 89, 137, .2); }
       .section-heading { max-width: 610px; margin-bottom: 49px; }
       .section-heading h2 { margin-bottom: 0; }
-      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 23px; }
-      .step { min-height: 260px; padding: 31px; border-radius: 20px; background: #fff; box-shadow: 0 10px 26px rgba(42, 64, 129, .07); }
-      .step-number { display: grid; width: 42px; height: 42px; place-items: center; margin-bottom: 34px; border-radius: 50%; background: #f58220; color: #fff; font-size: 15px; font-weight: 800; }
-      .step:nth-child(2) .step-number { background: #00a2df; }
-      .step:nth-child(3) .step-number { background: #e94e87; }
-      .step h3 { margin-bottom: 11px; font-size: 21px; letter-spacing: -.02em; }
-      .step p { margin-bottom: 0; color: #5a6685; font-size: 15px; line-height: 1.6; }
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
+      .step { min-height: 126px; padding: 25px 24px 17px; background: #fff; box-shadow: 0 22px 20px rgba(255, 171, 49, .24); color: #334054; text-align: center; transform: skewY(-9deg); }
+      .step:nth-child(2) { transform: skewY(-9deg); }
+      .step:nth-child(3) { transform: none; }
+      .step > * { transform: skewY(9deg); }
+      .step:nth-child(3) > * { transform: none; }
+      .step-number { margin-bottom: 9px; color: #1aa2b4; font-size: 15px; font-weight: 400; }
+      .step-icon { display: block; height: 24px; margin-bottom: 8px; color: #17a5b7; font-size: 28px; font-weight: 700; line-height: 24px; }
+      .step h3 { margin-bottom: 12px; font-size: 13px; font-weight: 400; letter-spacing: -.025em; }
+      .step p { margin-bottom: 0; color: #0b9eb4; font-size: 9px; line-height: 1.35; }
 
-      .pricing { display: grid; grid-template-columns: .9fr 1.1fr; gap: 76px; align-items: center; padding: 116px 0; }
+      .pricing { display: block; min-height: 577px; padding: 43px 0 52px; text-align: center; }
+      .pricing-copy .eyebrow { display: none; }
+      .pricing-copy h2 { margin-bottom: 17px; color: #10a1b6; font-size: 23px; font-weight: 400; letter-spacing: 0; }
       .pricing-copy p:last-child { max-width: 450px; margin: 23px 0 0; color: #556284; font-size: 17px; line-height: 1.7; }
-      .price-card { position: relative; max-width: 430px; padding: 37px; border-radius: 24px; background: #f58220; color: #fff; box-shadow: 13px 13px 0 #192653; }
-      .price-card .tag { display: inline-block; margin-bottom: 21px; padding: 7px 11px; border-radius: 999px; background: #fff; color: #ed6d1b; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .price-card { width: 225px; max-width: 100%; margin: auto; overflow: hidden; border: 1px solid #e2e2e2; border-radius: 0; background: #fff; color: #2b405a; box-shadow: 0 1px 5px rgba(0, 0, 0, .16); text-align: left; }
+      .price-card .tag { display: block; margin: 0; padding: 12px 5px; border-radius: 0; background: #2fc7a8; color: #fff; font-size: 15px; font-weight: 400; letter-spacing: 0; text-align: center; text-transform: none; }
       .price-card h3 { margin-bottom: 6px; font-size: 29px; }
-      .price { margin-bottom: 20px; font-size: 55px; font-weight: 800; letter-spacing: -.06em; }
-      .price small { font-size: 15px; font-weight: 700; letter-spacing: normal; }
-      .checks { display: grid; gap: 11px; margin: 0 0 28px; padding: 0; list-style: none; font-size: 14px; }
-      .checks li::before { display: inline-grid; width: 19px; height: 19px; place-items: center; margin-right: 8px; border-radius: 50%; background: #fff; color: #ef741e; content: "+"; font-weight: 800; }
-      .price-card .button { width: 100%; text-align: center; box-shadow: 0 7px 0 #b44c19; }
+      .price { margin: 0; padding: 13px 5px 16px; background: #405e8a; color: #fff; font-size: 16px; font-weight: 400; letter-spacing: 0; text-align: center; }
+      .price small { font-size: 16px; font-weight: 400; letter-spacing: normal; }
+      .checks { display: block; margin: 11px 0 12px; padding: 0; list-style: none; font-size: 8px; }
+      .checks li { min-height: 24px; padding: 6px 9px 5px 18px; line-height: 1.2; }
+      .checks li:nth-child(even) { background: #e9edf2; }
+      .checks li::before { display: inline-grid; width: 12px; height: 12px; place-items: center; margin-right: 6px; border-radius: 50%; background: #078d16; color: #fff; content: "\2713"; font-size: 8px; font-weight: 800; vertical-align: -2px; }
+      .price-card .button { display: block; width: auto; margin: 18px 31px; padding: 9px 7px; border-radius: 2px; background: #ff5959; box-shadow: none; color: #fff; font-size: 12px; font-weight: 400; text-align: center; }
+      .price-card .button:hover { background: #ed4949; box-shadow: none; transform: none; }
 
       .templates { padding: 101px 0 114px; background: #182653; color: #fff; }
       .templates .eyebrow { color: #74d5f2; }
@@ -157,7 +169,7 @@
       @media (max-width: 850px) {
          .about.shell, .pricing, .reseller-inner, .services, .benefits-grid { grid-template-columns: 1fr; gap: 42px; }
          .about-art { width: min(100%, 620px); margin: auto; }
-        .price-card { max-width: 480px; }
+         .price-card { max-width: 100%; }
         .feature-grid { grid-template-columns: repeat(2, 1fr); }
       }
       @media (max-width: 620px) {
@@ -174,7 +186,8 @@
         .intro { font-size: 17px; }
         .hero .button { padding: 12px 26px; font-size: 18px; }
         .about, .pricing, .services, .benefits, .features { padding-top: 75px; padding-bottom: 75px; }
-        .how, .templates { padding-top: 72px; padding-bottom: 76px; }
+         .how { min-height: 0; padding: 52px 0 60px; }
+         .templates { padding-top: 72px; padding-bottom: 76px; }
          .about { min-height: 0; }
          .about-copy .eyebrow { margin-bottom: 22px; font-size: 20px; }
          .about-copy h2 { margin-bottom: 24px; font-size: 32px; line-height: 1.25; }
@@ -182,13 +195,14 @@
          .about-demo { margin: 27px 0 0; font-size: 20px; }
          .about-art { min-height: 330px; }
          .art-person { right: 27%; transform: scale(.7); transform-origin: bottom; }
-        .steps, .template-grid, .feature-grid, .service-list { grid-template-columns: 1fr; }
-        .step { min-height: 0; }
+         .steps, .template-grid, .feature-grid, .service-list { grid-template-columns: 1fr; }
+         .step { min-height: 126px; transform: none; }
+         .step > * { transform: none; }
         .templates-heading { display: block; }
         .templates-heading p { margin-top: 18px; }
         .reseller { padding: 78px 0 102px; }
         .reseller::before { right: -285px; }
-        .price-card { padding: 29px 23px; box-shadow: 9px 9px 0 #192653; }
+         .pricing { min-height: 0; padding: 50px 0 70px; }
         .footer { display: block; margin-top: 70px; text-align: center; }
         .footer p { margin-bottom: 15px; }
       }
@@ -225,7 +239,7 @@
       <div class="about-art" aria-hidden="true"><div class="art-window"></div><div class="art-desk"></div><div class="art-person"></div><div class="art-plant"></div><div class="art-cat"></div></div>
     </section>
 
-    <section class="how" aria-labelledby="how-heading"><div class="shell"><div class="section-heading"><p class="eyebrow">How It Works?</p><h2 id="how-heading">How It Works?</h2></div><div class="steps"><article class="step"><div class="step-number">01</div><h3>Create your Card</h3><p>Design your digital visiting card in 2 minutes.</p></article><article class="step"><div class="step-number">02</div><h3>Save to your Device</h3><p>Digital Visiting Card is accessible anytime from anywhere.</p></article><article class="step"><div class="step-number">03</div><h3>Share with friends and colleagues</h3><p>Through a variety of channels.</p></article></div></div></section>
+    <section class="how" aria-labelledby="how-heading"><div class="shell"><div class="section-heading"><p class="eyebrow">How It Works?</p><h2 id="how-heading">How It Works?</h2></div><div class="steps"><article class="step"><span class="step-icon" aria-hidden="true">&#9998;</span><div class="step-number">1. Create your Card</div><p>Design your digital visiting card in 2 minutes.</p></article><article class="step"><span class="step-icon" aria-hidden="true">&#8615;</span><div class="step-number">2. Save to your Device</div><p>Digital Visiting Card is accessible anytime from anywhere.</p></article><article class="step"><span class="step-icon" aria-hidden="true">&#9679;</span><div class="step-number">3. Share with friends and colleagues</div><p>Through a variety of channels.</p></article></div></div></section>
 
     <section class="pricing shell" aria-labelledby="pricing-heading"><div class="pricing-copy"><p class="eyebrow">Affordable prices plus more</p><h2 id="pricing-heading">Affordable prices plus more</h2></div><article class="price-card"><span class="tag">Digital Card with Ecommerce</span><div class="price">Rs 499 <small>Only</small></div><ul class="checks"><li>Share cards with anyone, Unlimited times</li><li>Update card Unlimited times</li><li>Ecommerce Online Store</li><li>Profile Photo</li><li>Select design from available templates</li><li>5 Products or Services</li><li>10 Photos in Gallery</li><li>Social Media Links</li><li>5 Videos in Youtube Video Gallery</li><li>Products with images</li><li>Payment Section</li><li>Contact Form Included</li></ul><a class="button" href="/customer-login?mode=register">Create Now Online &gt;&gt;</a></article></section>
 
