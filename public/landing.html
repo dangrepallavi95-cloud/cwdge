@@ -141,27 +141,30 @@
       .template:nth-child(2) .mini-card, .template:nth-child(3) .mini-card, .template:nth-child(5) .mini-card { background: rgba(255, 255, 255, .94); }
       .select-label { line-height: 1; }
 
-      .reseller { position: relative; overflow: hidden; padding: 114px 0 151px; background: #00a2df; color: #fff; }
-      .reseller::before, .reseller::after { position: absolute; border-radius: 50%; content: ""; }
-      .reseller::before { top: -210px; right: -130px; width: 630px; height: 410px; border: 70px solid #f58220; }
-      .reseller::after { bottom: -246px; left: -130px; width: 600px; height: 390px; border: 60px solid #5a2b9c; }
-      .reseller-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr .85fr; gap: 60px; align-items: center; }
-      .reseller h2 { max-width: 590px; margin-bottom: 19px; }
-      .reseller-copy { max-width: 540px; margin-bottom: 29px; font-size: 18px; line-height: 1.65; }
-      .reseller .button { color: #0089c0; box-shadow: 0 9px 0 #0875a0; }
-      .reseller-note { padding: 28px; border: 2px solid rgba(255, 255, 255, .64); border-radius: 20px; background: rgba(255, 255, 255, .12); backdrop-filter: blur(4px); }
-      .reseller-note strong { display: block; margin-bottom: 10px; font-size: 23px; }
-      .reseller-note p { margin-bottom: 0; line-height: 1.6; }
+      .reseller { position: relative; z-index: 0; min-height: 438px; overflow: hidden; padding: 169px 0 70px; background: #1097eb; color: #090909; text-align: center; }
+      .reseller-wave { position: absolute; z-index: -1; top: 0; left: 0; width: 100%; height: 290px; }
+      .reseller-inner { position: relative; z-index: 1; width: min(100% - 48px, 860px); margin: auto; }
+      .reseller h2 { max-width: 520px; margin: 0 auto 49px; font-size: 20px; font-weight: 400; letter-spacing: 0; line-height: 1.42; }
+      .reseller-copy { margin: 0; font-size: 27px; line-height: 1.47; }
+      .reseller-copy + .reseller-copy { margin-top: 1px; }
+      .reseller-copy a { text-decoration: none; }
+      .whatsapp-mark { display: inline-grid; width: .95em; height: .95em; place-items: center; margin-right: .16em; border: .08em solid currentColor; border-radius: 50%; font-size: .82em; line-height: 1; vertical-align: .02em; }
+      .whatsapp-mark::after { content: "\260E"; font-size: .68em; transform: rotate(-18deg); }
 
-      .services { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 80px; padding: 111px 0 105px; }
-      .services-copy { color: #536080; font-size: 17px; line-height: 1.65; }
-      .service-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
-      .service { padding: 23px; border-radius: 18px; background: #f1f4fc; }
-      .service:nth-child(2) { background: #edf8ff; }
-      .service:nth-child(3) { background: #f8edf6; }
-      .service:nth-child(4) { background: #fff3e9; }
-      .service h3 { margin-bottom: 8px; font-size: 18px; }
-      .service p { margin-bottom: 0; color: #56617c; font-size: 14px; line-height: 1.5; }
+      .services { position: relative; z-index: 0; min-height: 500px; overflow: hidden; padding: 3px 24px 63px; background: #1097eb; color: #fff; text-align: center; }
+      .services::before { position: absolute; z-index: -1; right: 0; bottom: 0; left: 0; height: 260px; background: #fff; clip-path: polygon(0 64%, 8% 52%, 15% 48%, 20% 42%, 25% 27%, 29% 14%, 32% 6%, 35% 4%, 38% 12%, 43% 44%, 48% 36%, 51% 15%, 53% 10%, 55% 11%, 59% 35%, 65% 47%, 70% 52%, 75% 40%, 79% 23%, 82% 19%, 85% 25%, 90% 58%, 93% 82%, 95% 94%, 97% 94%, 100% 30%, 100% 100%, 0 100%); content: ""; }
+      .services-inner { position: relative; z-index: 1; width: min(100%, 1040px); margin: auto; }
+      .services .eyebrow { display: none; }
+      .services h2 { margin: 0 0 36px; color: #fff; font-size: clamp(40px, 3.05vw, 55px); font-weight: 700; letter-spacing: -.03em; line-height: 1; text-shadow: 0 3px 1px rgba(0, 0, 0, .45); }
+      .service-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; align-items: stretch; }
+      .service { display: flex; min-height: 252px; flex-direction: column; align-items: center; padding: 28px 22px 40px; border-radius: 10px; background: linear-gradient(145deg, #9533b6, #3d70df); box-shadow: 0 7px 14px rgba(28, 47, 142, .18); }
+      .service:nth-child(2) { background: linear-gradient(145deg, #5c63d8, #4a66d8); }
+      .service:nth-child(3) { background: linear-gradient(145deg, #793ac4, #3779db); }
+      .service:nth-child(4) { background: linear-gradient(145deg, #693fcc, #4670db); }
+      .service h3 { min-height: 49px; margin: 0 0 21px; color: #fff; font-size: 20px; font-weight: 700; line-height: 1.4; }
+      .service p { max-width: 205px; min-height: 56px; margin: 0 0 19px; color: #fff; font-size: 13px; line-height: 1.45; }
+      .service .button { margin-top: auto; padding: 11px 32px; border-radius: 999px; background: #fff; box-shadow: none; color: #7638c7; font-size: 16px; font-weight: 400; }
+      .service .button:hover { background: #f0eaff; box-shadow: none; transform: none; }
 
       .benefits { padding: 102px 0; background: #fff6ed; }
       .benefits-grid { display: grid; grid-template-columns: .83fr 1.17fr; gap: 74px; }
@@ -198,7 +201,8 @@
          .about.shell, .pricing, .reseller-inner, .services, .benefits-grid { grid-template-columns: 1fr; gap: 42px; }
          .about-art { width: min(100%, 620px); margin: auto; }
          .price-card { max-width: 100%; }
-        .feature-grid { grid-template-columns: repeat(2, 1fr); }
+         .feature-grid { grid-template-columns: repeat(2, 1fr); }
+         .service-list { grid-template-columns: repeat(2, 1fr); max-width: 650px; margin: auto; }
       }
       @media (max-width: 620px) {
          .shell, .about.shell { width: min(100% - 32px, 560px); }
@@ -231,8 +235,15 @@
          .template-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 20px; }
          .template { max-width: 120px; }
          .template:nth-child(11) { grid-column: auto; }
-        .reseller { padding: 78px 0 102px; }
-        .reseller::before { right: -285px; }
+         .reseller { min-height: 405px; padding: 146px 0 50px; }
+         .reseller-wave { height: 245px; }
+         .reseller h2 { margin-bottom: 38px; font-size: 17px; }
+         .reseller-copy { font-size: 22px; }
+         .services { min-height: 0; padding: 10px 16px 55px; }
+         .services h2 { margin-bottom: 28px; }
+         .services::before { height: 150px; }
+         .service-list { grid-template-columns: 1fr; gap: 15px; max-width: 310px; margin: auto; }
+         .service { min-height: 235px; }
          .pricing { min-height: 0; padding: 50px 0 70px; }
         .footer { display: block; margin-top: 70px; text-align: center; }
         .footer p { margin-bottom: 15px; }
@@ -292,9 +303,9 @@
       <a class="template" href="/customer-login?mode=register" aria-label="Select Gold template"><div class="phone"><div class="phone-screen"><div class="mini-logo">G</div><div class="mini-name">GOLDEN HOUR</div><div class="mini-role">Photography</div><div class="mini-actions"><i></i><i></i><i></i><i></i></div><div class="mini-card"><b></b><span></span><b></b></div></div></div><span class="select-label">Select</span></a>
     </div></div></section>
 
-    <section class="reseller" aria-labelledby="reseller-heading"><div class="shell reseller-inner"><div><p class="eyebrow" style="color:#fff">Reseller</p><h2 id="reseller-heading">RESELLER, CONTACT US FOR GOOD PROFITABLE BUSINESS</h2><p class="reseller-copy">+91-9892935274</p><a class="button" href="#contact">Contact Us</a></div><aside class="reseller-note"><strong>+91-9892935274</strong></aside></div></section>
+    <section class="reseller" aria-labelledby="reseller-heading"><svg class="reseller-wave" viewBox="0 0 1920 290" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="#fff" d="M0 0H1920V151C1844 152 1791 149 1733 126C1664 99 1621 21 1544 18C1458 15 1386 152 1325 226C1282 278 1245 286 1202 254C1135 205 1092 65 1003 14C931-27 858 53 784 89C708 126 647 111 586 73C526 36 489 22 445 58C398 97 374 190 326 237C273 288 234 230 183 214C124 196 82 258 36 268C21 271 9 269 0 265Z"/></svg><div class="reseller-inner"><h2 id="reseller-heading">RESELLER, CONTACT US<br>FOR GOOD PROFITABLE BUSINESS</h2><p class="reseller-copy"><a href="tel:+919892935274" aria-label="Call +91-9892935274">&#9742; +91-9892935274</a></p><p class="reseller-copy"><a href="https://wa.me/919892935274" aria-label="Message +91-9892935274 on WhatsApp"><span class="whatsapp-mark" aria-hidden="true"></span>+91-9892935274</a></p></div></section>
 
-    <section class="services shell" id="services" aria-labelledby="services-heading"><div><p class="eyebrow">Services We Offer</p><h2 id="services-heading">Services We Offer</h2></div><div class="services-copy"><div class="service-list"><article class="service"><h3>Digital Visiting Card</h3></article><article class="service"><h3>Website Design/Developement</h3></article><article class="service"><h3>Digital Marketing</h3></article><article class="service"><h3>Logo Designing</h3></article></div></div></section>
+    <section class="services" id="services" aria-labelledby="services-heading"><div class="services-inner"><p class="eyebrow">Services We Offer</p><h2 id="services-heading">Services We Offer</h2><div class="service-list"><article class="service"><h3>Digital Visiting Card</h3><p>Still using old boring visiting cards? Now its time to change. Use our Online Visiting Card service and GO DIGITAL.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Website<br>Design/Developement</h3><p>Design your own Business/Professional website Starting @ 2499 Rs only.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Digital Marketing</h3><p>Advertise online and expand your business.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Logo Designing</h3><p>Best logo designers available to design your business/professional logo.</p><a class="button" href="/customer-login?mode=register">Select</a></article></div></div></section>
 
     <section class="benefits" aria-labelledby="benefits-heading"><div class="shell benefits-grid"><div class="benefits-copy"><p class="eyebrow">Digital Card is Beneficial for</p><h2 id="benefits-heading">Digital Card is Beneficial for</h2><p>If you meet your prospective customers in person (one to one meeting) or communicate on social networks and sell your products or services, then our Digital Business Card will help establish your message in a more attractive way.</p></div><div class="benefit-list"><article class="benefit"><div class="benefit-badge">01</div><div><h3>Business Owners</h3></div></article><article class="benefit"><div class="benefit-badge">02</div><div><h3>Sales Professionals</h3></div></article><article class="benefit"><div class="benefit-badge">03</div><div><h3>Software &amp; IT</h3></div></article><article class="benefit"><div class="benefit-badge">04</div><div><h3>Marketing Agencies</h3></div></article><article class="benefit"><div class="benefit-badge">05</div><div><h3>Consultants</h3></div></article><article class="benefit"><div class="benefit-badge">06</div><div><h3>Events and Travels</h3></div></article><article class="benefit"><div class="benefit-badge">07</div><div><h3>Finance &amp; Realtors</h3></div></article><article class="benefit"><div class="benefit-badge">08</div><div><h3>Education &amp; Training</h3></div></article><article class="benefit"><div class="benefit-badge">09</div><div><h3>Health and Beauty</h3></div></article></div></div></section>
 
