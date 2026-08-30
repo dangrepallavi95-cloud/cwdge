@@ -166,27 +166,28 @@
       .service .button { margin-top: auto; padding: 11px 32px; border-radius: 999px; background: #fff; box-shadow: none; color: #7638c7; font-size: 16px; font-weight: 400; }
       .service .button:hover { background: #f0eaff; box-shadow: none; transform: none; }
 
-      .benefits { padding: 102px 0; background: #fff6ed; }
-      .benefits-grid { display: grid; grid-template-columns: .83fr 1.17fr; gap: 74px; }
-      .benefits-copy > p:last-child { max-width: 430px; margin-bottom: 0; color: #5d6680; line-height: 1.65; }
-      .benefit-list { display: grid; gap: 17px; }
-      .benefit { display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 20px; border-radius: 16px; background: #fff; }
-      .benefit-badge { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 14px; background: #f58220; color: #fff; font-weight: 800; }
-      .benefit:nth-child(2) .benefit-badge { background: #5a2b9c; }
-      .benefit:nth-child(3) .benefit-badge { background: #00a2df; }
-      .benefit h3 { margin-bottom: 5px; font-size: 17px; }
-      .benefit p { margin-bottom: 0; color: #66708a; font-size: 14px; line-height: 1.5; }
+       .benefits { padding: 32px 0 83px; background: #fff; color: #1e2737; text-align: center; }
+       .benefits-grid { width: min(100% - 112px, 1795px); margin: auto; }
+       .benefits-copy h2 { margin: 0 0 16px; font-size: clamp(29px, 2vw, 38px); font-weight: 400; letter-spacing: 0; line-height: 1.2; }
+       .benefits-copy .eyebrow { display: none; }
+       .benefits-copy > p:last-child { max-width: 1510px; margin: 0 auto 11px; color: #667082; font-size: 15px; font-weight: 600; line-height: 1.5; }
+       .benefit-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 9px; align-items: start; }
+       .benefit { min-height: 143px; padding: 22px 16px 12px; background: #fff; box-shadow: 0 2px 13px rgba(29, 41, 63, .06); }
+       .benefit:nth-child(7) { grid-column: 2 / span 1; }
+       .benefit-badge { display: block; height: 29px; margin-bottom: 10px; color: #ff5a31; font-family: Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 700; line-height: 29px; }
+       .benefit h3 { margin: 0 0 10px; font-size: clamp(15px, 1.1vw, 19px); font-weight: 700; line-height: 1.15; }
+       .benefit p { max-width: 225px; margin: 0 auto; color: #4f5a70; font-size: 12px; line-height: 1.52; }
 
-      .features { padding: 107px 0 118px; }
-      .features .section-heading { margin-bottom: 44px; }
-      .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
-      .feature { min-height: 192px; padding: 24px; border: 1px solid #e1e6f3; border-radius: 16px; }
-      .feature-icon { display: grid; width: 35px; height: 35px; place-items: center; margin-bottom: 24px; border-radius: 10px; background: #e9f8fd; color: #008fc6; font-weight: 800; }
-      .feature:nth-child(2) .feature-icon, .feature:nth-child(6) .feature-icon { background: #fff0e5; color: #e86b18; }
-      .feature:nth-child(3) .feature-icon, .feature:nth-child(7) .feature-icon { background: #f4eafa; color: #5a2b9c; }
-      .feature:nth-child(4) .feature-icon, .feature:nth-child(8) .feature-icon { background: #fdebf2; color: #d53e78; }
-      .feature h3 { margin-bottom: 7px; font-size: 16px; }
-      .feature p { margin-bottom: 0; color: #697490; font-size: 13px; line-height: 1.5; }
+       .features { width: min(100% - 112px, 1635px); padding: 0 0 46px; color: #0878c9; text-align: center; }
+       .features .section-heading { max-width: none; margin: 0 0 68px; }
+       .features .eyebrow { margin: 0 0 37px; color: #22ceb1; font-size: 14px; font-weight: 400; letter-spacing: 0; }
+       .features h2 { margin: 0; font-size: clamp(27px, 2.4vw, 38px); font-weight: 700; letter-spacing: 0; line-height: 1.15; }
+       .feature-grid { display: grid; grid-template-columns: repeat(42, minmax(0, 1fr)); gap: 67px 22px; }
+       .feature { min-width: 0; grid-column: span 6; }
+       .feature:nth-child(n + 8) { grid-column: span 7; }
+       .feature-icon { display: grid; height: 43px; place-items: center; margin-bottom: 15px; color: #0878c9; font-family: Arial, Helvetica, sans-serif; font-size: 43px; font-weight: 700; line-height: 1; }
+       .feature:nth-child(11) .feature-icon { font-size: 13px; line-height: .72; }
+       .feature h3 { margin: 0; color: #9a9ba1; font-size: 16px; font-weight: 400; line-height: 1.2; white-space: nowrap; }
 
       .contact { position: relative; overflow: hidden; padding: 95px 24px 42px; background: #192650; color: #fff; }
       .contact::before { position: absolute; top: -260px; right: -95px; width: 560px; height: 410px; border: 55px solid #f58220; border-radius: 50%; content: ""; opacity: .95; }
@@ -198,10 +199,14 @@
       .footer a { color: #fff; font-weight: 700; text-decoration: none; }
 
       @media (max-width: 850px) {
-         .about.shell, .pricing, .reseller-inner, .services, .benefits-grid { grid-template-columns: 1fr; gap: 42px; }
+          .about.shell, .pricing, .reseller-inner, .services { grid-template-columns: 1fr; gap: 42px; }
          .about-art { width: min(100%, 620px); margin: auto; }
          .price-card { max-width: 100%; }
-         .feature-grid { grid-template-columns: repeat(2, 1fr); }
+          .benefits-grid, .features { width: min(100% - 48px, 760px); }
+          .benefit-list { grid-template-columns: repeat(3, 1fr); }
+          .benefit:nth-child(7) { grid-column: auto; }
+          .feature-grid { grid-template-columns: repeat(4, 1fr); gap: 48px 22px; }
+          .feature, .feature:nth-child(n + 8) { grid-column: auto; }
          .service-list { grid-template-columns: repeat(2, 1fr); max-width: 650px; margin: auto; }
       }
       @media (max-width: 620px) {
@@ -217,7 +222,7 @@
         h1 { margin-bottom: 20px; }
         .intro { font-size: 17px; }
         .hero .button { padding: 12px 26px; font-size: 18px; }
-        .about, .pricing, .services, .benefits, .features { padding-top: 75px; padding-bottom: 75px; }
+          .about, .pricing, .services { padding-top: 75px; padding-bottom: 75px; }
          .how { min-height: 0; padding: 52px 0 60px; }
           .templates { padding-top: 60px; padding-bottom: 72px; }
          .about { min-height: 0; }
@@ -227,7 +232,7 @@
          .about-demo { margin: 27px 0 0; font-size: 20px; }
          .about-art { min-height: 330px; }
          .art-person { right: 27%; transform: scale(.7); transform-origin: bottom; }
-          .steps, .feature-grid, .service-list { grid-template-columns: 1fr; }
+           .steps, .service-list { grid-template-columns: 1fr; }
          .step { min-height: 126px; transform: none; }
          .step > * { transform: none; }
          .templates .shell { width: min(100% - 32px, 560px); }
@@ -244,7 +249,18 @@
          .services::before { height: 150px; }
          .service-list { grid-template-columns: 1fr; gap: 15px; max-width: 310px; margin: auto; }
          .service { min-height: 235px; }
-         .pricing { min-height: 0; padding: 50px 0 70px; }
+          .pricing { min-height: 0; padding: 50px 0 70px; }
+          .benefits { padding: 60px 0 66px; }
+          .benefits-grid, .features { width: min(100% - 32px, 560px); }
+          .benefits-copy h2 { font-size: 28px; }
+          .benefits-copy > p:last-child { font-size: 14px; }
+          .benefit-list { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+          .benefit { min-height: 0; padding: 21px 18px; }
+          .features { padding: 58px 0 70px; }
+          .features .section-heading { margin-bottom: 48px; }
+          .features .eyebrow { margin-bottom: 24px; }
+          .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 14px; }
+          .feature h3 { font-size: 14px; white-space: normal; }
         .footer { display: block; margin-top: 70px; text-align: center; }
         .footer p { margin-bottom: 15px; }
       }
@@ -307,9 +323,9 @@
 
     <section class="services" id="services" aria-labelledby="services-heading"><div class="services-inner"><p class="eyebrow">Services We Offer</p><h2 id="services-heading">Services We Offer</h2><div class="service-list"><article class="service"><h3>Digital Visiting Card</h3><p>Still using old boring visiting cards? Now its time to change. Use our Online Visiting Card service and GO DIGITAL.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Website<br>Design/Developement</h3><p>Design your own Business/Professional website Starting @ 2499 Rs only.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Digital Marketing</h3><p>Advertise online and expand your business.</p><a class="button" href="/customer-login?mode=register">Select</a></article><article class="service"><h3>Logo Designing</h3><p>Best logo designers available to design your business/professional logo.</p><a class="button" href="/customer-login?mode=register">Select</a></article></div></div></section>
 
-    <section class="benefits" aria-labelledby="benefits-heading"><div class="shell benefits-grid"><div class="benefits-copy"><p class="eyebrow">Digital Card is Beneficial for</p><h2 id="benefits-heading">Digital Card is Beneficial for</h2><p>If you meet your prospective customers in person (one to one meeting) or communicate on social networks and sell your products or services, then our Digital Business Card will help establish your message in a more attractive way.</p></div><div class="benefit-list"><article class="benefit"><div class="benefit-badge">01</div><div><h3>Business Owners</h3></div></article><article class="benefit"><div class="benefit-badge">02</div><div><h3>Sales Professionals</h3></div></article><article class="benefit"><div class="benefit-badge">03</div><div><h3>Software &amp; IT</h3></div></article><article class="benefit"><div class="benefit-badge">04</div><div><h3>Marketing Agencies</h3></div></article><article class="benefit"><div class="benefit-badge">05</div><div><h3>Consultants</h3></div></article><article class="benefit"><div class="benefit-badge">06</div><div><h3>Events and Travels</h3></div></article><article class="benefit"><div class="benefit-badge">07</div><div><h3>Finance &amp; Realtors</h3></div></article><article class="benefit"><div class="benefit-badge">08</div><div><h3>Education &amp; Training</h3></div></article><article class="benefit"><div class="benefit-badge">09</div><div><h3>Health and Beauty</h3></div></article></div></div></section>
+    <section class="benefits" aria-labelledby="benefits-heading"><div class="benefits-grid"><div class="benefits-copy"><p class="eyebrow">Digital Card is Beneficial for</p><h2 id="benefits-heading">Digital Card is Beneficial for</h2><p>If you meet your prospective customers in person (one to one meeting) or atleast you do telephonic conversations to market and sell your products or services, then our Digital Business Card will help convey your message in a more strategic way.</p></div><div class="benefit-list"><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#128188;</div><h3>Business Owners</h3><p>Business owners who call and/or<br>meet prospects personally to get<br>business.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#129309;</div><h3>Sales Professionals</h3><p>Independent Sales Professionals,<br>Field Staff and Sales Executives.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#9729;</div><h3>Software &amp; IT</h3><p>Web Designers, Digital and<br>Social Media Marketers who call /<br>meet business people.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#128227;</div><h3>Marketing Agencies</h3><p>Advertising, Branding, News<br>Paper, Printing and Media<br>Planning Houses.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#9871;</div><h3>Consultants</h3><p>Architect, Interior Designers, CA,<br>Finance and other Consultants.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#9992;</div><h3>Events and Travels</h3><p>Professionals from Event<br>Management, Tours and Travel<br>Companies.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#128202;</div><h3>Finance &amp; Realtors</h3><p>People from Real Estate Brokers<br>and Insurance Advisors.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#127891;</div><h3>Education &amp; Training</h3><p>Corporate Trainers, Educational<br>Workshops, HR Consultants and<br>Teachers.</p></article><article class="benefit"><div class="benefit-badge" aria-hidden="true">&#9829;</div><h3>Health and Beauty</h3><p>Gym, Beautician, Salon, Dietician,<br>Image Consultants Yoga &amp; Dance<br>Professionals.</p></article></div></div></section>
 
-    <section class="features shell" aria-labelledby="features-heading"><div class="section-heading"><p class="eyebrow">Features</p><h2 id="features-heading">ONE BUSINESS CARD, ENDLESS POSSIBILITIES</h2></div><div class="feature-grid"><article class="feature"><div class="feature-icon">C</div><h3>One Click Call</h3></article><article class="feature"><div class="feature-icon">W</div><h3>One Click WhatsApp</h3></article><article class="feature"><div class="feature-icon">E</div><h3>One Click Email</h3></article><article class="feature"><div class="feature-icon">N</div><h3>One Click Navigate</h3></article><article class="feature"><div class="feature-icon">A</div><h3>Add to Contacts</h3></article><article class="feature"><div class="feature-icon">F</div><h3>Website &amp; Social Links</h3></article><article class="feature"><div class="feature-icon">S</div><h3>Share Unlimited</h3></article><article class="feature"><div class="feature-icon">O</div><h3>Online Store</h3></article><article class="feature"><div class="feature-icon">U</div><h3>Easy To Update</h3></article><article class="feature"><div class="feature-icon">P</div><h3>Photo Gallery</h3></article><article class="feature"><div class="feature-icon">Y</div><h3>Youtube Video Gallery</h3></article><article class="feature"><div class="feature-icon">R</div><h3>Payment Section</h3></article><article class="feature"><div class="feature-icon">Q</div><h3>Enquiry Form</h3></article></div></section>
+    <section class="features" aria-labelledby="features-heading"><div class="section-heading"><p class="eyebrow">Features</p><h2 id="features-heading">ONE BUSINESS CARD, ENDLESS POSSIBILITIES</h2></div><div class="feature-grid"><article class="feature"><div class="feature-icon" aria-hidden="true">&#9742;</div><h3>One Click Call</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9743;</div><h3>One Click WhatsApp</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9993;</div><h3>One Click Email</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9679;</div><h3>One Click Navigate</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9646;</div><h3>Add to Contacts</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">f</div><h3>Website &amp; Social Links</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#8226;&lt;</div><h3>Share Unlimited</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9638;</div><h3>Online Store</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9998;</div><h3>Easy To Update</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9635;</div><h3>Photo Gallery</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">You<br>Tube</div><h3>Youtube Video Gallery</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#8377;</div><h3>Payment Section</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9679;</div><h3>Enquiry Form</h3></article></div></section>
 
     <section class="contact" id="contact" aria-labelledby="contact-heading"><div class="contact-main"><p class="eyebrow" style="color:#74d5f2">Contact Us</p><h2 id="contact-heading">CONTACT US</h2><p>Enter your name<br>Enter contact number<br>Enter email<br>Enter your query</p><a class="button" href="/customer-login?mode=register">Send</a></div><footer class="footer"><p>Copyright 2021 | codigin</p><a href="/customer-login">Customer Login</a></footer></section>
   </body>
