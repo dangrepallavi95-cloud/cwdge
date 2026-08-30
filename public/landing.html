@@ -18,22 +18,22 @@
       .button { display: inline-block; padding: 15px 27px; border: 0; border-radius: 999px; background: #fff; color: #ed6d1b; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 9px 0 #b84e19; transition: transform .15s, box-shadow .15s; }
       .button:hover { transform: translateY(3px); box-shadow: 0 6px 0 #b84e19; }
 
-      .hero { position: relative; min-height: 680px; overflow: hidden; background: #f58220; color: #fff; isolation: isolate; }
-      .nav { position: relative; z-index: 3; display: flex; min-height: 100px; align-items: center; justify-content: space-between; gap: 28px; }
-      .logo { display: block; width: 190px; height: 72px; border-radius: 7px; object-fit: contain; }
-      .nav-links { display: flex; align-items: center; gap: clamp(17px, 3vw, 43px); font-size: 15px; font-weight: 700; }
+      .site-header { background: #fff; }
+      .nav { position: relative; z-index: 3; display: flex; width: min(100% - 160px, 1680px); min-height: 101px; align-items: center; justify-content: space-between; gap: 28px; margin: auto; }
+      .logo { display: block; width: 150px; height: 84px; object-fit: contain; }
+      .nav-links { display: flex; align-items: center; gap: clamp(24px, 2.4vw, 42px); color: #383838; font-size: 14px; font-weight: 400; }
       .nav-links a { text-decoration: none; }
       .nav-links a:hover { text-decoration: underline; text-underline-offset: 5px; }
-      .nav-login { padding: 12px 18px; border: 2px solid #fff; border-radius: 999px; }
-      .nav-login:hover { background: #fff; color: #ed6d1b; text-decoration: none !important; }
-      .hero-content { position: relative; z-index: 2; margin-top: 87px; }
-      .kicker { margin: 0 0 15px; font-size: 14px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-      h1 { max-width: 650px; margin-bottom: 25px; font-size: clamp(46px, 6vw, 78px); line-height: .98; letter-spacing: -.06em; }
-      .intro { max-width: 535px; margin-bottom: 31px; font-size: clamp(17px, 2vw, 20px); line-height: 1.55; }
-      .wave { position: absolute; z-index: 1; border-radius: 50% 50% 0 0; }
-      .wave-blue { right: -34%; bottom: -240px; width: 1020px; height: 590px; background: #00a2df; transform: rotate(-20deg); }
-      .wave-purple { right: -260px; bottom: -310px; width: 1040px; height: 590px; background: #5a2b9c; transform: rotate(-11deg); }
-      .lower-wave { position: absolute; z-index: 1; bottom: -218px; left: -6%; width: 79%; height: 380px; border-radius: 50% 50% 0 0; background: #e94e87; transform: rotate(5deg); }
+      .nav-login { color: #6c6c6c; font-size: 11px; font-weight: 400; opacity: .75; }
+      .nav-login:hover { color: #383838; }
+      .hero { position: relative; min-height: 775px; overflow: hidden; background: linear-gradient(135deg, #ff5b2e, #ff8410 78%); color: #fff; isolation: isolate; }
+      .hero-content { position: relative; z-index: 2; display: flex; min-height: 775px; flex-direction: column; align-items: center; padding-top: 247px; text-align: center; }
+      .kicker { order: 3; margin: 39px 0 40px; font-size: 15px; font-weight: 400; letter-spacing: .03em; text-transform: uppercase; }
+      h1 { max-width: 1300px; margin-bottom: 26px; font-size: clamp(42px, 3.05vw, 58px); line-height: 1; letter-spacing: -.045em; text-shadow: 0 3px 5px rgba(103, 68, 48, .45); }
+      .intro { max-width: 1320px; margin-bottom: 0; font-size: clamp(18px, 1.5vw, 28px); font-weight: 300; line-height: 1.48; }
+      .hero .button { order: 4; padding: 15px 36px; border: 2px solid #fff; border-radius: 5px; background: rgba(255, 255, 255, .14); box-shadow: none; color: #fff; font-size: 22px; font-weight: 400; }
+      .hero .button:hover { background: rgba(255, 255, 255, .28); transform: none; }
+      .hero-waves { position: absolute; z-index: 1; top: -9px; left: 0; width: 100%; height: 342px; }
 
       .about { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(44px, 8vw, 120px); align-items: center; padding: 118px 0; }
       .about-copy p:last-child { max-width: 510px; margin: 24px 0 0; color: #556284; font-size: 17px; line-height: 1.7; }
@@ -154,17 +154,17 @@
       }
       @media (max-width: 620px) {
         .shell { width: min(100% - 32px, 560px); }
-        .hero { min-height: 660px; }
-        .nav { min-height: 83px; }
+        .nav { width: min(100% - 32px, 560px); min-height: 83px; }
         .logo { width: 148px; height: 58px; }
         .nav-links { gap: 13px; font-size: 12px; }
-        .nav-links a:not(.nav-login) { display: none; }
-        .nav-login { padding: 10px 14px; }
-        .hero-content { margin-top: 70px; }
+        .nav-links a:not(:first-child) { display: none; }
+        .hero { min-height: 660px; }
+        .hero-content { min-height: 660px; padding-top: 190px; }
+        .hero-waves { top: 72px; height: 205px; width: 175%; left: -38%; }
+        .kicker { margin: 28px 0 32px; font-size: 11px; }
+        h1 { margin-bottom: 20px; }
         .intro { font-size: 17px; }
-        .wave-blue { right: -570px; bottom: -190px; }
-        .wave-purple { right: -570px; bottom: -267px; }
-        .lower-wave { bottom: -282px; left: -39%; width: 105%; }
+        .hero .button { padding: 12px 26px; font-size: 18px; }
         .about, .pricing, .services, .benefits, .features { padding-top: 75px; padding-bottom: 75px; }
         .how, .templates { padding-top: 72px; padding-bottom: 76px; }
         .about-art { min-height: 315px; }
@@ -181,23 +181,29 @@
     </style>
   </head>
   <body>
-    <section class="hero" aria-labelledby="hero-heading">
-      <header class="nav shell">
+    <header class="site-header">
+      <div class="nav">
         <a href="/" aria-label="CustomerWala home"><img class="logo" src="/images/customerwala-logo.jpg" alt="CustomerWala"></a>
         <nav class="nav-links" aria-label="Main navigation">
-          <a class="nav-login" href="/admin-login">Admin Login</a>
-          <a class="nav-login" href="/customer-login">Customer Login</a>
+          <a href="/customer-login">Customer Login</a>
           <a href="#services">Services We Offer</a>
           <a href="#contact">Contact</a>
+          <a class="nav-login" href="/admin-login">Admin Login</a>
         </nav>
-      </header>
+      </div>
+    </header>
+    <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-content shell">
-        <p class="kicker">This is a digital business card that is smart, elegant &amp; affordable.</p>
         <h1 id="hero-heading">Digital Business Cards For All Business</h1>
         <p class="intro">Our digital business card platform makes designing a card simple, convenient, and reliable. Create what you need in just 5 minutes.</p>
+        <p class="kicker">This is a digital business card that is smart, elegant &amp; affordable.</p>
         <a class="button" href="/customer-login?mode=register">Create Card &gt;</a>
       </div>
-      <div class="lower-wave" aria-hidden="true"></div><div class="wave wave-blue" aria-hidden="true"></div><div class="wave wave-purple" aria-hidden="true"></div>
+      <svg class="hero-waves" viewBox="0 0 1920 280" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path fill="#5700c7" d="M0 222 C70 190 90 160 140 149 C216 131 270 190 332 232 C405 281 474 268 547 233 C665 176 735 107 852 152 C985 204 1018 280 1168 267 C1343 252 1395 205 1515 210 C1658 216 1742 158 1834 204 C1880 227 1900 252 1920 264 L1920 280 L0 280Z"/>
+        <path fill="#078cf0" d="M0 208 C65 158 99 150 144 176 C217 218 248 294 331 250 C397 216 451 154 519 159 C581 163 650 226 717 226 C827 225 850 131 964 135 C1062 139 1080 248 1173 239 C1253 231 1334 121 1422 144 C1494 162 1512 259 1583 250 C1656 241 1669 156 1744 151 C1813 146 1865 196 1920 227 L1920 280 L0 280Z"/>
+        <path fill="#9bd1f3" d="M0 119 C82 97 162 82 226 122 C323 183 365 261 449 250 C528 239 593 151 673 145 C769 138 815 211 893 232 C986 257 1046 210 1126 166 C1227 111 1321 102 1412 141 C1495 177 1543 238 1614 234 C1682 231 1695 169 1763 148 C1828 127 1877 151 1920 171 L1920 217 C1865 195 1813 145 1744 151 C1669 156 1656 241 1583 250 C1512 259 1494 162 1422 144 C1334 121 1253 231 1173 239 C1080 248 1062 139 964 135 C850 131 827 225 717 226 C650 226 581 163 519 159 C451 154 397 216 331 250 C248 294 217 218 144 176 C99 150 65 158 0 208Z"/>
+      </svg>
     </section>
 
     <section class="about shell" id="about" aria-labelledby="about-heading">
