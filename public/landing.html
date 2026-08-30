@@ -189,14 +189,34 @@
        .feature:nth-child(11) .feature-icon { font-size: 13px; line-height: .72; }
        .feature h3 { margin: 0; color: #9a9ba1; font-size: 16px; font-weight: 400; line-height: 1.2; white-space: nowrap; }
 
-      .contact { position: relative; overflow: hidden; padding: 95px 24px 42px; background: #192650; color: #fff; }
-      .contact::before { position: absolute; top: -260px; right: -95px; width: 560px; height: 410px; border: 55px solid #f58220; border-radius: 50%; content: ""; opacity: .95; }
-      .contact-main { position: relative; z-index: 1; max-width: 760px; margin: auto; text-align: center; }
-      .contact h2 { margin-bottom: 17px; }
-      .contact-main > p { max-width: 560px; margin: 0 auto 27px; color: #c5cee7; line-height: 1.6; }
-      .contact .button { color: #1a2553; box-shadow: none; }
-      .footer { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 25px; max-width: 1180px; margin: 91px auto 0; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .2); color: #aebad9; font-size: 13px; }
-      .footer a { color: #fff; font-weight: 700; text-decoration: none; }
+       .contact { overflow: hidden; padding: 50px 0 0; background: linear-gradient(112deg, #2499ec 0%, #526ad7 50%, #a51daf 100%); color: #fff; }
+       .contact-layout { display: grid; width: min(100% - 96px, 1690px); grid-template-columns: minmax(390px, 1fr) minmax(360px, .92fr); gap: clamp(70px, 13vw, 255px); align-items: center; margin: auto; }
+       .contact-card { min-height: 490px; padding: 27px 62px 30px; background: #fff; color: #263653; }
+       .contact-card .logo { width: 292px; max-width: 100%; height: 126px; margin: 0 0 3px 22px; }
+       .contact-card h2 { margin: -6px 0 30px; color: #8e6e5d; font-family: Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 400; letter-spacing: 0; line-height: 1; }
+       .contact-details { display: grid; gap: 12px; }
+       .contact-detail { display: grid; grid-template-columns: 45px 1fr; align-items: center; min-height: 44px; font-size: 14px; line-height: 1.65; }
+       .contact-detail .contact-icon { display: grid; width: 26px; height: 38px; place-items: center; border-right: 2px solid #766c68; color: #6d6b6e; font-family: Arial, Helvetica, sans-serif; font-size: 25px; line-height: 1; }
+       .contact-detail address { font-style: normal; }
+       .contact-detail a { color: inherit; text-decoration: none; }
+       .contact-detail a:hover { text-decoration: underline; }
+       .contact-social { display: flex; gap: 10px; margin: 11px 0 0; padding: 0; list-style: none; }
+       .contact-social a { display: grid; width: 48px; height: 47px; place-items: center; border: 2px solid #766c68; border-radius: 10px; color: #596276; font-family: Arial, Helvetica, sans-serif; font-size: 28px; font-weight: 700; text-decoration: none; }
+       .contact-social a:hover { background: #f0f2f6; }
+       .contact-form-wrap { padding: 20px 0 10px; }
+       .contact-form-wrap h2 { margin: 0 0 27px; color: #fff; font-size: 30px; font-weight: 400; letter-spacing: 0; text-align: center; }
+       .contact-form { display: grid; gap: 20px; }
+       .contact-form input, .contact-form textarea { width: 100%; border: 0; border-bottom: 2px solid rgba(255, 255, 255, .95); border-radius: 0; outline: 0; background: transparent; color: #fff; font: italic 14px Arial, Helvetica, sans-serif; }
+       .contact-form input { height: 33px; padding: 0 15px; }
+       .contact-form textarea { height: 86px; padding: 10px 15px; resize: vertical; }
+       .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255, 255, 255, .76); opacity: 1; }
+       .contact-form input:focus, .contact-form textarea:focus { border-bottom-color: #fff; box-shadow: 0 2px 0 rgba(255, 255, 255, .28); }
+       .contact-form button { width: min(100%, 365px); min-height: 52px; margin: -14px auto 0; border: 0; border-radius: 3px; background: #ff5357; color: #fff; cursor: pointer; font: 400 23px Arial, Helvetica, sans-serif; }
+       .contact-form button:hover { background: #f2464b; }
+       .contact-form button:disabled { cursor: wait; opacity: .7; }
+       .form-status { min-height: 20px; margin: -5px 0 0; color: #fff; font-size: 13px; text-align: center; }
+       .footer { display: flex; justify-content: center; min-height: 40px; margin-top: 37px; padding: 12px 24px; background: #050505; color: #fff; font-size: 12px; }
+       .footer p { margin: 0; }
 
       @media (max-width: 850px) {
           .about.shell, .pricing, .reseller-inner, .services { grid-template-columns: 1fr; gap: 42px; }
@@ -261,8 +281,10 @@
           .features .eyebrow { margin-bottom: 24px; }
           .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 14px; }
           .feature h3 { font-size: 14px; white-space: normal; }
-        .footer { display: block; margin-top: 70px; text-align: center; }
-        .footer p { margin-bottom: 15px; }
+         .contact { padding-top: 36px; }
+         .contact-layout { width: min(100% - 48px, 760px); grid-template-columns: 1fr; gap: 35px; }
+         .contact-card { min-height: 0; padding: 25px 30px 30px; }
+         .contact-form-wrap { padding: 0; }
       }
     </style>
   </head>
@@ -327,6 +349,27 @@
 
     <section class="features" aria-labelledby="features-heading"><div class="section-heading"><p class="eyebrow">Features</p><h2 id="features-heading">ONE BUSINESS CARD, ENDLESS POSSIBILITIES</h2></div><div class="feature-grid"><article class="feature"><div class="feature-icon" aria-hidden="true">&#9742;</div><h3>One Click Call</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9743;</div><h3>One Click WhatsApp</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9993;</div><h3>One Click Email</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9679;</div><h3>One Click Navigate</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9646;</div><h3>Add to Contacts</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">f</div><h3>Website &amp; Social Links</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#8226;&lt;</div><h3>Share Unlimited</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9638;</div><h3>Online Store</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9998;</div><h3>Easy To Update</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9635;</div><h3>Photo Gallery</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">You<br>Tube</div><h3>Youtube Video Gallery</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#8377;</div><h3>Payment Section</h3></article><article class="feature"><div class="feature-icon" aria-hidden="true">&#9679;</div><h3>Enquiry Form</h3></article></div></section>
 
-    <section class="contact" id="contact" aria-labelledby="contact-heading"><div class="contact-main"><p class="eyebrow" style="color:#74d5f2">Contact Us</p><h2 id="contact-heading">CONTACT US</h2><p>Enter your name<br>Enter contact number<br>Enter email<br>Enter your query</p><a class="button" href="/customer-login?mode=register">Send</a></div><footer class="footer"><p>Copyright 2021 | codigin</p><a href="/customer-login">Customer Login</a></footer></section>
+    <section class="contact" id="contact" aria-labelledby="contact-heading"><div class="contact-layout"><aside class="contact-card" aria-label="CustomerWala contact details"><img class="logo" src="/images/customerwala-logo.jpg" alt="CustomerWala"><h2>Contact Details</h2><div class="contact-details"><div class="contact-detail"><span class="contact-icon" aria-hidden="true">&#9679;</span><address>Office No. G-66, Ground Floor, Wonder Mall, G. B. Road, Chitalsar Manpada, Thane, Maharashtra, India, 400607.</address></div><div class="contact-detail"><span class="contact-icon" aria-hidden="true">&#9742;</span><a href="tel:+919892935274">+91 9892935274</a></div><div class="contact-detail"><span class="contact-icon" aria-hidden="true">&#9743;</span><a href="https://wa.me/919892935274">+91 9892935274</a></div><div class="contact-detail"><span class="contact-icon" aria-hidden="true">&#9993;</span><a href="mailto:info@cwdg.in">info@cwdg.in</a></div></div><ul class="contact-social" aria-label="Social links"><li><a href="https://www.instagram.com/" aria-label="Instagram">&#9673;</a></li><li><a href="https://www.facebook.com/" aria-label="Facebook">f</a></li></ul></aside><div class="contact-form-wrap"><h2 id="contact-heading">CONTACT US</h2><form class="contact-form" id="contact-form"><input name="name" type="text" autocomplete="name" placeholder="Enter your name" maxlength="120" required><input name="phone" type="tel" autocomplete="tel" placeholder="Enter contact number" maxlength="40" required><input name="email" type="email" autocomplete="email" placeholder="Enter email" maxlength="254" required><textarea name="message" placeholder="Enter your query" maxlength="2000" required></textarea><button type="submit">Send</button><p class="form-status" id="form-status" aria-live="polite"></p></form></div></div><footer class="footer"><p>Copyright 2021 | cwdg.in</p></footer></section>
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const button = form.querySelector('button');
+        const status = document.getElementById('form-status');
+        button.disabled = true;
+        status.textContent = 'Sending...';
+        try {
+          const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
+          form.reset();
+          status.textContent = 'Thanks. Your message has been sent.';
+        } catch (error) {
+          status.textContent = error.message || 'Unable to send your message.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
   </body>
 </html>
