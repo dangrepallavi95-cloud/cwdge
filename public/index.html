@@ -118,6 +118,9 @@
         document.querySelector("#productsStatus").textContent = "Setup complete";
       };
       syncSkipButton();
+      const landingMode = new URLSearchParams(window.location.search).get("mode");
+      if (window.location.pathname === "/customer-login") setAuthMode("customer");
+      if (landingMode === "register") { setAuthMode("customer"); setRegistrationMode(); }
     </script>
     <script>
       const ecommerce = document.createElement("section"); ecommerce.id = "ecommerceView"; ecommerce.className = "customer-app"; ecommerce.hidden = true;

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CustomerWala helps businesses create a digital presence that brings in customers.">
+    <title>CustomerWala | We Bring Customers To Your Business</title>
+    <style>
+      :root { font-family: Arial, Helvetica, sans-serif; color: #1a2553; background: #fff; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; overflow-x: hidden; }
+      a { color: inherit; }
+      .hero { position: relative; min-height: 680px; overflow: hidden; background: #f58220; color: #fff; isolation: isolate; }
+      .nav { position: relative; z-index: 3; width: min(1180px, calc(100% - 48px)); margin: auto; min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+      .logo { display: block; width: 190px; height: 72px; object-fit: contain; border-radius: 7px; }
+      .nav-links { display: flex; align-items: center; gap: clamp(17px, 3vw, 43px); font-size: 15px; font-weight: 700; }
+      .nav-links a { text-decoration: none; }
+      .nav-links a:hover { text-decoration: underline; text-underline-offset: 5px; }
+      .nav-login { padding: 12px 18px; border: 2px solid #fff; border-radius: 999px; }
+      .nav-login:hover { background: #fff; color: #ed6d1b; text-decoration: none !important; }
+      .hero-content { position: relative; z-index: 2; width: min(1180px, calc(100% - 48px)); margin: 87px auto 0; }
+      .kicker { margin: 0 0 15px; font-size: 14px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      h1 { max-width: 640px; margin: 0; font-size: clamp(45px, 6vw, 78px); line-height: .98; letter-spacing: -.055em; }
+      .intro { max-width: 530px; margin: 25px 0 31px; font-size: clamp(17px, 2vw, 20px); line-height: 1.55; }
+      .button { display: inline-block; padding: 16px 29px; border-radius: 999px; background: #fff; color: #ef741e; font-size: 16px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 0 #b44c19; transition: transform .15s, box-shadow .15s; }
+      .button:hover { transform: translateY(3px); box-shadow: 0 7px 0 #b44c19; }
+      .wave { position: absolute; z-index: 1; width: 120%; height: 370px; left: -10%; border-radius: 50%; transform: rotate(-8deg); }
+      .wave-blue { right: -34%; bottom: -240px; left: auto; width: 1020px; height: 590px; background: #00a2df; transform: rotate(-20deg); border-radius: 48% 52% 0 0; }
+      .wave-purple { right: -260px; bottom: -310px; width: 1040px; height: 590px; background: #5a2b9c; transform: rotate(-11deg); border-radius: 50% 50% 0 0; }
+      .lower-wave { position: absolute; z-index: 1; bottom: -218px; left: -6%; width: 79%; height: 380px; background: #e94e87; border-radius: 50% 50% 0 0; transform: rotate(5deg); }
+      .services { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 80px; width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding: 110px 0 94px; }
+      .section-label { margin: 0 0 13px; color: #f27c22; font-size: 13px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+      h2 { margin: 0; font-size: clamp(34px, 4vw, 53px); line-height: 1.03; letter-spacing: -.045em; }
+      .services-copy { color: #536080; font-size: 17px; line-height: 1.65; }
+      .service-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
+      .service { padding: 23px; border-radius: 18px; background: #f1f4fc; }
+      .service:nth-child(2) { background: #edf8ff; }
+      .service:nth-child(3) { background: #f8edf6; }
+      .service h3 { margin: 0 0 8px; font-size: 18px; }
+      .service p { margin: 0; color: #56617c; font-size: 14px; line-height: 1.5; }
+      .contact { padding: 72px 24px; background: #192650; color: #fff; text-align: center; }
+      .contact h2 { max-width: 640px; margin: 0 auto 17px; }
+      .contact p { margin: 0 auto 26px; max-width: 560px; color: #c5cee7; line-height: 1.6; }
+      .contact .button { color: #1a2553; box-shadow: none; }
+      @media (max-width: 720px) { .hero { min-height: 660px; } .nav { width: min(100% - 30px, 560px); min-height: 83px; } .logo { width: 148px; height: 58px; } .nav-links { gap: 13px; font-size: 12px; } .nav-links a:not(.nav-login) { display: none; } .nav-login { padding: 10px 14px; } .hero-content { width: min(100% - 40px, 560px); margin-top: 70px; } .intro { font-size: 17px; } .wave-blue { right: -570px; bottom: -190px; } .wave-purple { right: -570px; bottom: -267px; } .lower-wave { width: 105%; left: -39%; bottom: -282px; } .services { grid-template-columns: 1fr; gap: 31px; padding: 70px 0; } .service-list { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <section class="hero" aria-labelledby="hero-heading">
+      <header class="nav">
+        <a href="/" aria-label="CustomerWala home"><img class="logo" src="/images/customerwala-logo.jpg" alt="CustomerWala"></a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a class="nav-login" href="/customer-login">Customer Login</a>
+          <a href="#services">Services We Offer</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+      <div class="hero-content">
+        <p class="kicker">We bring customers to your business</p>
+        <h1 id="hero-heading">Build a stronger connection with every customer.</h1>
+        <p class="intro">Create your own digital business card and give customers one simple place to discover, contact, and choose your business.</p>
+        <a class="button" href="/customer-login?mode=register">Create Card</a>
+      </div>
+      <div class="lower-wave" aria-hidden="true"></div>
+      <div class="wave wave-blue" aria-hidden="true"></div>
+      <div class="wave wave-purple" aria-hidden="true"></div>
+    </section>
+    <section class="services" id="services" aria-labelledby="services-heading">
+      <div><p class="section-label">Services we offer</p><h2 id="services-heading">Everything your customers need, in one card.</h2></div>
+      <div class="services-copy"><p>CustomerWala gives your business a shareable digital home designed to make the next customer interaction easy.</p><div class="service-list"><article class="service"><h3>Digital visiting card</h3><p>Share your business details with a single link.</p></article><article class="service"><h3>Products &amp; services</h3><p>Show customers what your business has to offer.</p></article><article class="service"><h3>Easy payments</h3><p>Make payment options visible at the right time.</p></article><article class="service"><h3>Customer enquiries</h3><p>Let interested customers get in touch directly.</p></article></div></div>
+    </section>
+    <section class="contact" id="contact" aria-labelledby="contact-heading"><h2 id="contact-heading">Your next customer is one card away.</h2><p>Sign in to manage your digital card, or create one today and start sharing your business.</p><a class="button" href="/customer-login?mode=register">Create Card</a></section>
+  </body>
+</html>
