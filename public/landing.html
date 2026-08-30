@@ -35,20 +35,28 @@
       .hero .button:hover { background: rgba(255, 255, 255, .28); transform: none; }
       .hero-waves { position: absolute; z-index: 1; top: -9px; left: 0; width: 100%; height: 342px; }
 
-      .about { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(44px, 8vw, 120px); align-items: center; padding: 118px 0; }
-      .about-copy p:last-child { max-width: 510px; margin: 24px 0 0; color: #556284; font-size: 17px; line-height: 1.7; }
-      .about-art { position: relative; min-height: 360px; }
-      .orbit { position: absolute; border: 1px dashed #b8c6e9; border-radius: 50%; }
-      .orbit-one { inset: 20px 38px 0 44px; }
-      .orbit-two { inset: 66px 78px 44px 0; }
-      .business-card { position: absolute; top: 55px; right: 28px; width: min(300px, 78%); min-height: 210px; padding: 26px; overflow: hidden; border-radius: 20px; background: #182653; box-shadow: 0 25px 45px rgba(24, 38, 83, .2); color: #fff; transform: rotate(6deg); }
-      .business-card::after { position: absolute; right: -59px; bottom: -75px; width: 185px; height: 185px; border-radius: 50%; background: #00a2df; content: ""; }
-      .business-card small { position: relative; z-index: 1; display: block; color: #9ed8ef; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-      .business-card strong { position: relative; z-index: 1; display: block; margin-top: 48px; font-size: 25px; }
-      .business-card span { position: relative; z-index: 1; display: block; margin-top: 7px; color: #d5def5; font-size: 13px; }
-      .card-dot { position: absolute; z-index: 2; top: 12px; left: 45px; width: 88px; height: 88px; border-radius: 50%; background: #f58220; box-shadow: 0 12px 0 #e94e87; }
-      .share-chip { position: absolute; z-index: 3; bottom: 30px; left: 23px; display: flex; width: 145px; height: 70px; align-items: center; justify-content: center; border-radius: 15px; background: #fff; box-shadow: 0 16px 30px rgba(24, 38, 83, .16); color: #182653; font-size: 13px; font-weight: 800; transform: rotate(-5deg); }
-      .share-chip::before { width: 26px; height: 26px; margin-right: 8px; border-radius: 8px; background: repeating-linear-gradient(90deg, #182653 0 3px, transparent 3px 6px), repeating-linear-gradient(0deg, #182653 0 3px, transparent 3px 6px); content: ""; }
+      .about.shell { display: grid; width: calc(100% - 110px); max-width: 1720px; grid-template-columns: minmax(0, .97fr) minmax(0, 1.03fr); gap: clamp(44px, 5vw, 92px); align-items: center; min-height: 738px; padding: 76px 0 83px; }
+      .about-copy { padding-top: 4px; }
+      .about-copy .eyebrow { margin: 0 0 38px; color: #8c94a0; font-size: 24px; font-weight: 400; letter-spacing: 0; text-align: center; text-transform: none; }
+      .about-copy h2 { max-width: 800px; margin-bottom: 35px; color: #456492; font-size: clamp(35px, 2.45vw, 43px); font-weight: 400; letter-spacing: 0; line-height: 1.45; }
+      .about-copy p:last-child { max-width: 790px; margin: 0; color: #14203b; font-size: 15.5px; line-height: 1.95; }
+      .about-demo { display: inline-block; margin: 36px 0 0 43%; padding: 16px 37px; border-radius: 5px; background: #ff5252; box-shadow: none; color: #fff; font-size: 23px; font-weight: 400; }
+      .about-demo:hover { background: #ec4646; box-shadow: none; transform: none; }
+      .about-art { position: relative; min-height: 580px; overflow: hidden; border-radius: 14px; background: #7c91ad; }
+      .about-art::before { position: absolute; top: 37px; left: 25px; width: 49%; height: 39%; border: 2px solid #e2e7ed; border-bottom: 7px solid #263e68; background: linear-gradient(#fff 0 11%, #d4848d 11% 100%); content: ""; }
+      .about-art::after { position: absolute; right: -14%; bottom: -33%; width: 101%; height: 113%; background: #ffa46f; clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%); content: ""; }
+      .art-window, .art-desk, .art-person, .art-plant, .art-cat { position: absolute; z-index: 1; }
+      .art-window { top: 35%; left: 4%; width: 53%; height: 10%; background: #1d3967; box-shadow: 0 -43px 0 -8px #1d3967, 55px -35px 0 -10px #1d3967, 118px -8px 0 -6px #1d3967; }
+      .art-desk { z-index: 3; right: 7%; bottom: 40%; width: 57%; height: 13px; background: #a55364; }
+      .art-desk::before, .art-desk::after { position: absolute; top: 8px; width: 5px; height: 180px; background: #a55364; content: ""; transform-origin: top; }
+      .art-desk::before { left: 25%; transform: rotate(39deg); }
+      .art-desk::after { right: 9%; transform: rotate(-39deg); }
+      .art-person { z-index: 4; right: 32%; bottom: 15%; width: 146px; height: 274px; }
+      .art-person::before { position: absolute; top: 1px; left: 49px; width: 56px; height: 68px; border-radius: 48% 48% 42% 42%; background: #fff1e7; box-shadow: -18px -10px 0 4px #172f61; content: ""; }
+      .art-person::after { position: absolute; bottom: 0; left: 11px; width: 119px; height: 174px; border-radius: 47% 48% 14% 23%; background: linear-gradient(103deg, #8063a3 0 47%, #213960 48% 100%); content: ""; transform: rotate(-11deg); }
+      .art-plant { z-index: 4; bottom: 9%; left: 10%; width: 64px; height: 142px; border-radius: 42% 42% 3px 3px; background: #2776a5; box-shadow: 30px -33px 0 -4px #f6c769, -17px -18px 0 -2px #315682, 5px 140px 0 15px #bbb7b3; }
+      .art-cat { z-index: 4; right: 13%; bottom: 12%; width: 38px; height: 82px; border-radius: 50% 50% 13px 13px; background: #fffdf8; box-shadow: -31px 52px 0 7px #e8e5cf, -47px 39px 0 5px #fffdf8; }
+      .art-cat::before { position: absolute; top: -13px; left: 5px; width: 0; height: 0; border-right: 10px solid transparent; border-bottom: 16px solid #fffdf8; border-left: 10px solid transparent; content: ""; }
 
       .how { padding: 96px 0 116px; background: #f3f6ff; }
       .section-heading { max-width: 610px; margin-bottom: 49px; }
@@ -147,13 +155,13 @@
       .footer a { color: #fff; font-weight: 700; text-decoration: none; }
 
       @media (max-width: 850px) {
-        .about, .pricing, .reseller-inner, .services, .benefits-grid { grid-template-columns: 1fr; gap: 42px; }
-        .about-art { max-width: 520px; width: 100%; margin: auto; }
+         .about.shell, .pricing, .reseller-inner, .services, .benefits-grid { grid-template-columns: 1fr; gap: 42px; }
+         .about-art { width: min(100%, 620px); margin: auto; }
         .price-card { max-width: 480px; }
         .feature-grid { grid-template-columns: repeat(2, 1fr); }
       }
       @media (max-width: 620px) {
-        .shell { width: min(100% - 32px, 560px); }
+         .shell, .about.shell { width: min(100% - 32px, 560px); }
         .nav { width: min(100% - 32px, 560px); min-height: 83px; }
         .logo { width: 148px; height: 58px; }
         .nav-links { gap: 13px; font-size: 12px; }
@@ -167,7 +175,13 @@
         .hero .button { padding: 12px 26px; font-size: 18px; }
         .about, .pricing, .services, .benefits, .features { padding-top: 75px; padding-bottom: 75px; }
         .how, .templates { padding-top: 72px; padding-bottom: 76px; }
-        .about-art { min-height: 315px; }
+         .about { min-height: 0; }
+         .about-copy .eyebrow { margin-bottom: 22px; font-size: 20px; }
+         .about-copy h2 { margin-bottom: 24px; font-size: 32px; line-height: 1.25; }
+         .about-copy p:last-child { font-size: 15px; line-height: 1.75; }
+         .about-demo { margin: 27px 0 0; font-size: 20px; }
+         .about-art { min-height: 330px; }
+         .art-person { right: 27%; transform: scale(.7); transform-origin: bottom; }
         .steps, .template-grid, .feature-grid, .service-list { grid-template-columns: 1fr; }
         .step { min-height: 0; }
         .templates-heading { display: block; }
@@ -207,8 +221,8 @@
     </section>
 
     <section class="about shell" id="about" aria-labelledby="about-heading">
-      <div class="about-copy"><p class="eyebrow">About Us</p><h2 id="about-heading">Freedom From Boring Printed Business Cards</h2><p>Design your digital visiting card in 2 minutes - It's easy, elegant and free. Digi CARD is always in your pocket, never tears and never runs out. Your Digital Visiting Card can be easily updated with our user-friendly dashboard, so you won't need to re-print a business card again.</p></div>
-      <div class="about-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="card-dot"></div><div class="business-card"><small></small><strong></strong><span></span></div><div class="share-chip">Demo</div></div>
+      <div class="about-copy"><p class="eyebrow">About Us</p><h2 id="about-heading">Freedom From Boring Printed Business<br>Cards</h2><p>Design your digital visiting card in 2 minutes - it's easy, elegant and free. DIGI CARD is always in your pocket, never tears and never runs out. Your Digital Visiting Card can be easily updated with our user-friendly dashboard, so you won't need to re-print a business card again.</p><a class="button about-demo" href="/customer-login?mode=register">Demo</a></div>
+      <div class="about-art" aria-hidden="true"><div class="art-window"></div><div class="art-desk"></div><div class="art-person"></div><div class="art-plant"></div><div class="art-cat"></div></div>
     </section>
 
     <section class="how" aria-labelledby="how-heading"><div class="shell"><div class="section-heading"><p class="eyebrow">How It Works?</p><h2 id="how-heading">How It Works?</h2></div><div class="steps"><article class="step"><div class="step-number">01</div><h3>Create your Card</h3><p>Design your digital visiting card in 2 minutes.</p></article><article class="step"><div class="step-number">02</div><h3>Save to your Device</h3><p>Digital Visiting Card is accessible anytime from anywhere.</p></article><article class="step"><div class="step-number">03</div><h3>Share with friends and colleagues</h3><p>Through a variety of channels.</p></article></div></div></section>
