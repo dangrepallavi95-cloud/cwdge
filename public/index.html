@@ -6,7 +6,7 @@
     <meta name="description" content="CWDGE digital card administration portal">
     <title>CWDGE Admin</title>
     <style>
-      .customer-top { min-height: 118px; } .customer-top .profile { display: flex; align-items: center; gap: 10px; } .customer-app > .stepper, .customer-top + .stepper { justify-content: center; padding: 22px 20px; margin: 0 auto 34px; background: #f4f6f9; } .step { border: 0; text-decoration: none; } .step.active, .step:nth-child(3) { color: #fff; background: #0877c9; }
+      .customer-top { min-height: 118px; } .customer-top .profile { display: flex; align-items: center; gap: 10px; } .customer-app > .stepper, .customer-top + .stepper { justify-content: center; padding: 22px 20px; margin: 0 auto 34px; background: #f4f6f9; } .step { border: 0; text-decoration: none; transition: background-color .15s ease, color .15s ease; } .step:not(.active):hover { color: #075e9f; background: #d8ebfa; } .step:focus-visible { outline: 3px solid #075e9f; outline-offset: 3px; } .step.active, .step.active:hover { color: #fff; background: #0877c9; }
       .customer-app > .stepper { width: min(100% - 40px, 1180px); justify-content: center; margin: 24px auto 34px; }
       :root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #20242b; background: #f4f6f9; }
       * { box-sizing: border-box; } [hidden] { display: none !important; } body { margin: 0; background: #f4f6f9; } button, input, select { font: inherit; }
