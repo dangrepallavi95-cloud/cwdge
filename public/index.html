@@ -311,13 +311,13 @@
       const previewUrl = (value) => /^https?:\/\//i.test(String(value || "")) || String(value || "").startsWith("/") ? String(value) : "";
       const previewJson = (value) => { try { const data = JSON.parse(value || "[]"); return Array.isArray(data) ? data : []; } catch { return []; } };
       const previewPhone = (value) => String(value || "").replace(/[^+\d]/g, "");
-      const publicCardMatch = window.location.pathname.match(/^\/cards\/(\d+)\/?$/);
+      const publicCardMatch = window.location.pathname.match(/^\/cards\/([^/]+)\/?$/);
       const previewLink = (icon, label, value, href) => value ? `<a class="contact-link" href="${previewEscape(href)}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer"' : ""}><b>${icon}</b><span>${previewEscape(value)}</span></a>` : "";
       const previewSocials = (card) => [["Facebook", card.facebook_url], ["X / Twitter", card.twitter_url], ["Instagram", card.instagram_url], ["LinkedIn", card.linkedin_url], ["YouTube", card.youtube_url], ["Pinterest", card.pinterest_url]].filter(([, url]) => previewUrl(url)).map(([name, url]) => `<a class="social-link" href="${previewEscape(previewUrl(url))}" target="_blank" rel="noreferrer">${name}</a>`).join("");
       async function renderFullPreview() {
         if (!customerSession?.email && !publicCardMatch) return;
         const cards = publicCardMatch ? [] : await api(`/api/customer/cards?email=${encodeURIComponent(customerSession.email)}`);
-        const card = publicCardMatch ? await api(`/api/public/cards/${publicCardMatch[1]}`) : cards.find((item) => String(item.id) === String(customerSession.cardId)) || cards[0];
+        const card = publicCardMatch ? await api(`/api/public/cards/${encodeURIComponent(publicCardMatch[1])}`) : cards.find((item) => String(item.id) === String(customerSession.cardId)) || cards[0];
         if (!card) return;
         if (customerSession) customerSession.cardId = card.id;
         const products = previewJson(card.products_json).filter((product) => product.name);
