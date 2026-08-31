@@ -126,7 +126,7 @@
       function setAuthMode(mode) { authMode = mode; registrationMode = false; document.querySelectorAll("[data-auth]").forEach(button => button.classList.toggle("active", button.dataset.auth === mode)); $("#authTitle").textContent = mode === "admin" ? "Welcome back" : "Your card starts here"; $("#authDescription").textContent = mode === "admin" ? "Sign in to the CWDGE administrator portal." : "Sign in to manage your digital visiting card."; $("#email").value = mode === "admin" ? "admin@admin.com" : ""; $("#password").value = mode === "admin" ? "123456789" : ""; $("#adminHint").hidden = mode !== "admin"; $("#registrationPrompt").hidden = mode !== "customer"; $("#customerNameField").hidden = true; $("#companyField").hidden = true; $("#phoneLabel").hidden = true; $("#phone").hidden = true; $("#submitAuth").textContent = "Sign in"; $("#loginError").textContent = ""; }
       function setRegistrationMode() { registrationMode = true; $("#authTitle").textContent = "Create your card account"; $("#authDescription").textContent = "Start with your contact details, then choose your card design."; $("#customerNameField").hidden = false; $("#companyField").hidden = false; $("#phoneLabel").hidden = false; $("#phone").hidden = false; $("#submitAuth").textContent = "Create account"; $("#registrationPrompt").innerHTML = 'Already registered? <button type="button" class="link-button" id="signInInstead">Sign in</button>'; $("#signInInstead").onclick = () => setAuthMode("customer"); }
       function showCustomerStep(step) { $("#themeStep").hidden = step !== "theme"; $("#detailsStep").hidden = step !== "details"; $("#socialStep").hidden = step !== "social"; document.querySelectorAll("[data-customer-step]").forEach(button => button.classList.toggle("active", button.dataset.customerStep === step)); }
-      function populateCompanyDetails(card) { const form = $("#companyDetailsForm"); const nameParts = customerSession.name.trim().split(/\s+/); const values = { companyName: card.company_name, logoUrl: card.logo_url, tagline: card.tagline, firstName: card.first_name || nameParts[0], lastName: card.last_name || nameParts.slice(1).join(" "), designation: card.designation, phone: card.phone || "", alternatePhone: card.alternate_phone, whatsapp: card.whatsapp, address: card.address, website: card.website, location: card.location, establishedOn: card.established_on, aboutUs: card.about_us }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
+      function populateCompanyDetails(card) { const form = $("#companyDetailsForm"); const nameParts = customerSession.name.trim().split(/\s+/); const values = { companyName: card.company_name, tagline: card.tagline, firstName: card.first_name || nameParts[0], lastName: card.last_name || nameParts.slice(1).join(" "), designation: card.designation, phone: card.phone || "", alternatePhone: card.alternate_phone, whatsapp: card.whatsapp, address: card.address, website: card.website, location: card.location, establishedOn: card.established_on, aboutUs: card.about_us }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
       function populateSocialLinks(card) { const form = $("#socialLinksForm"); const values = { facebookUrl: card.facebook_url, twitterUrl: card.twitter_url, instagramUrl: card.instagram_url, linkedinUrl: card.linkedin_url, youtubeUrl: card.youtube_url, pinterestUrl: card.pinterest_url, video1Url: card.video_1_url, video2Url: card.video_2_url, video3Url: card.video_3_url, video4Url: card.video_4_url, video5Url: card.video_5_url }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
        function populatePaymentOptions(card) { const form = $("#paymentOptionsForm"); const values = { paytmNumber: card.paytm_number, googlePayNumber: card.google_pay_number, phonepeNumber: card.phonepe_number, bankName: card.bank_name, accountHolder: card.account_holder, bankAccountNumber: card.bank_account_number, ifscCode: card.ifsc_code, accountType: card.account_type }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
       $("#loginForm").onsubmit = async (event) => { event.preventDefault(); try { const details = { email: $("#email").value, password: $("#password").value }; if (authMode === "admin") { const user = await api("/api/login", { method: "POST", body: JSON.stringify(details) }); $("#userName").textContent = user.name; $("#loginView").hidden = true; $("#appView").hidden = false; return load(); } if (registrationMode) Object.assign(details, { name: $("#customerName").value, companyName: $("#companyName").value, phone: $("#phone").value }); const user = await api(registrationMode ? "/api/customer/register" : "/api/customer/login", { method: "POST", body: JSON.stringify(details) }); customerSession = { name: user.name || details.name, email: user.email || details.email, cardId: user.cardId }; const cards = await api(`/api/customer/cards?email=${encodeURIComponent(customerSession.email)}`); const card = cards[0]; customerSession.cardId ||= card?.id; $("#customerDisplayName").textContent = customerSession.name; $("#previewCompany").textContent = card?.company_name || details.companyName; $("#previewCustomer").textContent = customerSession.name; $("#cardPreview").className = `preview ${card?.selected_theme?.toLowerCase() || "ocean"}`; document.querySelectorAll("[data-theme]").forEach(button => button.classList.toggle("active", button.dataset.theme === (card?.selected_theme || "Ocean"))); populateCompanyDetails(card); populateSocialLinks(card); populatePaymentOptions(card); showCustomerStep("theme"); $("#loginView").hidden = true; $("#customerView").hidden = false; } catch (error) { $("#loginError").textContent = error.message; } };
@@ -415,8 +415,39 @@
         renderFullPreview().then(() => openCustomerPage("#previewView")).catch((error) => { document.body.innerHTML = `<main class="customer-main"><p class="error">${previewEscape(error.message)}</p></main>`; });
       }
     </script>
+      <style>.logo-upload img { display: block; width: 96px; height: 96px; margin-top: 12px; object-fit: contain; border: 1px solid #dce4e7; border-radius: 12px; background: #fff; }</style>
       <script>
         document.querySelector("#companyDetailsForm [name=companyName]").closest("div").insertAdjacentHTML("afterend", '<div class="wide"><label>Tagline <span class="muted">(optional)</span></label><input name="tagline" placeholder="A short description of your business"></div>');
+        const logoUrlInput = document.querySelector("#companyDetailsForm [name=logoUrl]");
+        logoUrlInput.parentElement.outerHTML = '<div class="wide logo-upload"><label>Company logo <span class="muted">(optional)</span></label><input name="logo" type="file" accept="image/gif,image/jpeg,image/png,image/webp"><span class="field-hint">GIF, JPEG, PNG, or WebP. Maximum 250 KB.</span><img id="logoPreview" alt="Selected company logo" hidden></div>';
+        const logoInput = document.querySelector("#companyDetailsForm [name=logo]");
+        const logoPreview = document.querySelector("#logoPreview");
+        const renderLogoPreview = (source = "") => { logoPreview.hidden = !source; logoPreview.src = source; };
+        logoInput.onchange = () => renderLogoPreview(logoInput.files[0] ? URL.createObjectURL(logoInput.files[0]) : "");
+        const originalPopulateCompanyDetails = populateCompanyDetails;
+        populateCompanyDetails = (card) => { originalPopulateCompanyDetails(card); renderLogoPreview(card.logo_url || ""); };
+        document.querySelector("#companyDetailsForm").onsubmit = async (event) => {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+          const fields = Object.fromEntries([...formData.entries()].filter(([, value]) => typeof value === "string"));
+          const status = $("#detailsStatus");
+          try {
+            let card = await api(`/api/customer/cards/${customerSession.cardId}/details`, { method: "PATCH", body: JSON.stringify(fields) });
+            const logo = formData.get("logo");
+            if (logo?.size) {
+              const upload = new FormData();
+              upload.append("logo", logo);
+              const response = await fetch(`/api/customer/cards/${customerSession.cardId}/logo`, { method: "POST", body: upload });
+              if (!response.ok) throw new Error((await response.json()).error || "Logo upload failed");
+              card = await response.json();
+              renderLogoPreview(card.logo_url);
+            }
+            $("#previewCompany").textContent = card.company_name;
+            $("#previewCustomer").textContent = `${card.first_name}${card.last_name ? ` ${card.last_name}` : ""}`;
+            status.textContent = "Company details saved";
+            showCustomerStep("social");
+          } catch (error) { status.textContent = error.message; }
+        };
       </script>
     </body>
 </html>
