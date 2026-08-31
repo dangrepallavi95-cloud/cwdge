@@ -17,6 +17,17 @@ Email: admin@admin.com
 Password: 123456789
 ```
 
+## Staff portal
+
+Staff can create and manage multiple customer cards from `http://localhost:3000/staff-login`.
+
+```text
+Email: staff@cwdge.local
+Password: 123456789
+```
+
+The startup migration creates the `staff` table and adds nullable `cards.staff_id` ownership without changing existing admin or customer cards. The SQL reference is in `migrations/001_staff_ownership.sql`.
+
 Card, customer, and payment data are stored persistently in `data/cwdge.db` and seeded on first startup.
 
 The Compose service uses host networking and does not publish Docker ports. Alloy connects to the PHP service on port `3000`.
