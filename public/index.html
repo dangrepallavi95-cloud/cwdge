@@ -29,6 +29,36 @@
       .social-card { max-width: 860px; padding: 30px; } .social-card h2 { margin-bottom: 4px; }
       @media (max-width: 850px) { .app { grid-template-columns: 1fr; } .sidebar { padding: 15px; } .brand { margin-bottom: 16px; } .nav { display: flex; overflow-x: auto; } .nav small { display: none; } .nav button { flex: 0 0 86px; font-size: .78rem; text-align: center; } .topbar { height: 62px; padding: 0 20px; } .screen { padding: 25px 20px; } .stats { grid-template-columns: repeat(2, 1fr); } .table-wrap { overflow-x: auto; } table { min-width: 760px; } .customer-layout { grid-template-columns: 1fr; } .theme-grid { grid-template-columns: repeat(2, 1fr); } .preview { min-height: 260px; } .preview h2 { margin-top: 30px; } .preview .contact { margin-top: 50px; } }
       @media (max-width: 680px) { .login { grid-template-columns: 1fr; } .login-aside { min-height: 260px; padding: 40px 24px; } .login-aside h1 { font-size: 2.8rem; } .login-panel { padding: 42px 0; } .page-head { align-items: flex-start; flex-direction: column; } .create { width: 100%; } .form-grid, .details-grid { grid-template-columns: 1fr; } .details-grid .wide { grid-column: auto; } .topbar h3 { font-size: .9rem; } .profile { font-size: .78rem; } }
+      /* Customer theme gallery */
+      #themeStep .page-head { margin-bottom: 30px; text-align: center; }
+      #themeStep .page-head h1 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); }
+      #themeStep .page-head p { max-width: 540px; margin-inline: auto; }
+      #themeStep .customer-layout { display: block; }
+      #themeStep .panel { padding: clamp(20px, 3.5vw, 42px) !important; overflow: visible; }
+      #themeStep .theme-grid { grid-template-columns: repeat(4, minmax(145px, 1fr)); gap: clamp(18px, 3vw, 42px); align-items: start; }
+      #themeStep .theme { --theme: #08a5da; --theme-dark: #075c95; --theme-paper: #f8fcfe; position: relative; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: #2b3444; box-shadow: none; text-align: center; transition: transform .18s ease; }
+      #themeStep .theme:hover { transform: translateY(-4px); }
+      #themeStep .theme:focus-visible { outline: 3px solid #0877c9; outline-offset: 7px; }
+      #themeStep .theme.forest { --theme: #2ca874; --theme-dark: #174d49; --theme-paper: #f4fcf7; }
+      #themeStep .theme.berry { --theme: #df4b5f; --theme-dark: #802a45; --theme-paper: #fff8f8; }
+      #themeStep .theme.mono { --theme: #3b4351; --theme-dark: #171b24; --theme-paper: #fbfbfc; }
+      .theme-phone { position: relative; width: min(100%, 168px); aspect-ratio: 9 / 17; margin: 0 auto 14px; overflow: hidden; border: 6px solid #303747; border-radius: 25px; background: var(--theme-paper); box-shadow: 0 9px 18px #17223a22, inset 0 0 0 1px #ffffff44; }
+      .theme-phone::before { position: absolute; z-index: 2; top: 0; left: 50%; width: 38px; height: 9px; border-radius: 0 0 7px 7px; background: #111722; content: ""; transform: translateX(-50%); }
+      .theme-phone::after { position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 15px; background: #fff; content: ""; }
+      .theme-screen { position: absolute; inset: 0; padding: 29px 11px 20px; background: linear-gradient(138deg, var(--theme) 0 16%, var(--theme-paper) 16% 82%, var(--theme-dark) 82%); }
+      .forest .theme-screen { background: linear-gradient(115deg, var(--theme) 0 11%, var(--theme-dark) 11% 72%, var(--theme) 72%); }
+      .berry .theme-screen { background: linear-gradient(156deg, var(--theme-paper) 0 18%, var(--theme) 18% 30%, var(--theme-paper) 30% 80%, var(--theme) 80%); }
+      .mono .theme-screen { background: linear-gradient(var(--theme-dark) 0 27%, var(--theme-paper) 27%); }
+      .theme-avatar { display: grid; width: 38px; height: 38px; place-items: center; margin: 0 auto 7px; border: 3px solid var(--theme); border-radius: 50%; background: #fff; color: var(--theme-dark); font-size: 18px; font-weight: 800; }
+      .theme-screen b { display: block; color: #252d3a; font-size: 7px; letter-spacing: .04em; }.theme-screen em { display: block; margin-top: 3px; color: #77808c; font-size: 5px; font-style: normal; }
+      .theme-socials { display: flex; justify-content: center; gap: 4px; margin: 11px 0 10px; }.theme-socials i { display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--theme); }
+      .theme-lines { padding: 8px; background: #ffffffd9; text-align: left; }.theme-lines span { display: block; height: 4px; margin-bottom: 5px; background: #dce2e8; }.theme-lines span:nth-child(2) { width: 68%; }.theme-lines span:last-child { width: 82%; margin: 0; background: var(--theme); }
+      .forest .theme-screen b, .mono .theme-screen b { color: #fff; }.forest .theme-screen em { color: #d2e2dd; }.mono .theme-screen em { color: #c8ccd5; }
+      #themeStep .theme strong { display: inline-block; margin: 0; color: #263144; font-size: 1rem; }#themeStep .theme small { display: block; margin-top: 4px; color: #737e8d; font-size: .79rem; opacity: 1; }
+      #themeStep .theme.active .theme-phone { border-color: #0877c9; box-shadow: 0 0 0 4px #dceeff, 0 11px 22px #17223a28; }#themeStep .theme.active::before { position: absolute; z-index: 3; top: 9px; right: max(0px, calc((100% - 168px) / 2)); display: grid; width: 27px; height: 27px; place-items: center; border: 2px solid #fff; border-radius: 50%; background: #0877c9; color: #fff; content: "✓"; font-size: 16px; font-weight: 900; }#themeStep .theme.active strong { color: #0877c9; }
+      #themeStep .customer-actions { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 38px; padding-top: 22px; border-top: 1px solid #e5e9ed; }#themeStep .create { padding: 12px 20px; }#themeStep #cardPreview { display: none; }
+      @media (max-width: 850px) { #themeStep .theme-grid { grid-template-columns: repeat(2, minmax(145px, 1fr)); gap: 30px; } }
+      @media (max-width: 500px) { #themeStep .panel { padding: 22px 14px !important; } #themeStep .theme-grid { gap: 28px 14px; } .theme-phone { max-width: 140px; border-width: 5px; border-radius: 22px; } #themeStep .customer-actions { align-items: stretch; flex-direction: column; } #themeStep .create { width: 100%; } }
     </style>
   </head>
   <body>
@@ -237,6 +267,24 @@
         $("#settingsForm").onsubmit = async (event) => { event.preventDefault(); app.settings = await api("/api/admin/settings", { method: "PATCH", body: JSON.stringify(Object.fromEntries(new FormData(event.target))) }); $("#userName").textContent = app.settings.display_name; $("#settingsStatus").textContent = "Settings saved"; };
         if (!app.settings) api("/api/admin/settings").then((settings) => { app.settings = settings; render(); });
       };
+    </script>
+    <script>
+      // Enhance the existing theme controls without changing their save or navigation behavior.
+      const themeSamples = {
+        Ocean: ["O", "OCEAN STUDIO", "Creative consultant"],
+        Forest: ["F", "FOREST & CO.", "Business advisor"],
+        Berry: ["B", "BERRY HOUSE", "Brand strategist"],
+        Monochrome: ["M", "MONO STUDIO", "Architecture practice"]
+      };
+      document.querySelector("#themeStep .page-head h1").textContent = "Choose your card style";
+      document.querySelector("#themeStep .page-head p").textContent = "Pick a visual starting point for your digital visiting card. You can update your details in the following steps.";
+      document.querySelectorAll("#themeStep [data-theme]").forEach((theme) => {
+        const [initial, name, role] = themeSamples[theme.dataset.theme];
+        theme.type = "button";
+        theme.setAttribute("aria-pressed", String(theme.classList.contains("active")));
+        theme.innerHTML = `<div class="theme-phone" aria-hidden="true"><div class="theme-screen"><div class="theme-avatar">${initial}</div><b>${name}</b><em>${role}</em><div class="theme-socials"><i></i><i></i><i></i><i></i></div><div class="theme-lines"><span></span><span></span><span></span></div></div></div><strong>${theme.dataset.theme}</strong><small>${theme.dataset.theme === "Ocean" ? "Confident and clear" : theme.dataset.theme === "Forest" ? "Warm and grounded" : theme.dataset.theme === "Berry" ? "Expressive and bold" : "Classic and minimal"}</small>`;
+        theme.addEventListener("click", () => document.querySelectorAll("#themeStep [data-theme]").forEach((item) => item.setAttribute("aria-pressed", String(item === theme))));
+      });
     </script>
     </body>
 </html>
