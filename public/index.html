@@ -26,7 +26,7 @@
       .modal { position: fixed; inset: 0; z-index: 4; display: grid; place-items: center; padding: 20px; background: #14233a80; } .modal[hidden] { display: none; } .dialog { width: min(100%, 570px); padding: 27px; border-radius: 14px; background: #fff; box-shadow: 0 22px 70px #14233a44; } .dialog h2 { margin-bottom: 3px; } .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; } .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 26px; } .secondary { padding: 11px 16px; color: #505b67; background: #edf0f3; } .dialog-actions .primary { width: auto; margin: 0; padding: 11px 16px; }
       .auth-switch { display: flex; gap: 7px; margin: 25px 0 6px; } .auth-switch button { flex: 1; padding: 10px; color: #6d7580; background: #edf0f3; } .auth-switch button.active { color: #fff; background: #14233a; } .link-button { padding: 0; color: #0877c9; background: transparent; font-size: .85rem; } .customer-app { min-height: 100vh; background: #f5f7fa; } .customer-top { display: flex; align-items: center; justify-content: space-between; padding: 19px max(20px, calc((100% - 1180px) / 2)); background: #fff; border-bottom: 1px solid #e5e9ed; } .customer-top .brand { margin: 0; } .customer-top .brand-logo { width: 185px; } .customer-main { width: min(100% - 40px, 1180px); margin: 46px auto; } .stepper { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 34px; } .step { flex: 0 0 auto; padding: 9px 13px; border-radius: 999px; color: #66717d; background: #e7ebef; font-size: .84rem; font-weight: 700; } .step.active { color: #fff; background: #0877c9; } .customer-layout { display: grid; grid-template-columns: 1fr 300px; gap: 26px; align-items: start; } .theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; } .theme { min-height: 245px; padding: 15px; border: 2px solid #e0e6eb; border-radius: 12px; color: #fff; text-align: left; box-shadow: 0 2px 7px #1b2b3c08; } .theme.active { border-color: #0877c9; box-shadow: 0 0 0 3px #d9ecff; } .theme strong { display: block; margin-top: 150px; font-size: 1rem; } .theme small { color: inherit; opacity: .8; } .ocean { background: #0c6da6; } .forest { background: #24714f; } .berry { background: #a43a5a; } .mono { background: #20242b; } .preview { min-height: 400px; padding: 25px; border-radius: 14px; color: #fff; background: #0c6da6; } .preview.forest { background: #24714f; } .preview.berry { background: #a43a5a; } .preview.mono { background: #20242b; } .preview h2 { margin-top: 80px; } .preview p { color: #e2f1fb; } .preview .contact { margin-top: 80px; border-top: 1px solid #ffffff55; padding-top: 16px; font-size: .86rem; } .customer-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
       .details-card { max-width: 860px; padding: 30px; } .details-card h2 { margin-bottom: 4px; } .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; } .details-grid .wide { grid-column: 1 / -1; } textarea { width: 100%; min-height: 110px; resize: vertical; border: 1px solid #dce1e7; border-radius: 9px; padding: 13px 14px; font: inherit; } textarea:focus { border-color: #1671c9; box-shadow: 0 0 0 3px #dceeff; outline: none; } .field-hint { display: block; margin-top: 5px; color: #78818c; font-size: .75rem; }
-      .social-card { max-width: 860px; padding: 30px; } .social-card h2 { margin-bottom: 4px; }
+      .social-card { max-width: 860px; padding: 30px; } .social-card h2 { margin-bottom: 4px; } .qr-upload-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; } .qr-upload-preview figure { margin: 0; padding: 10px; border: 1px solid #e0e6eb; border-radius: 9px; background: #f8fafc; } .qr-upload-preview img { display: block; width: 100%; max-width: 150px; aspect-ratio: 1; margin: 0 auto 8px; object-fit: contain; background: #fff; } .qr-upload-preview figcaption { color: #596572; font-size: .78rem; font-weight: 700; text-align: center; }
       @media (max-width: 850px) { .app { grid-template-columns: 1fr; } .sidebar { padding: 15px; } .brand { margin-bottom: 16px; } .nav { display: flex; overflow-x: auto; } .nav small { display: none; } .nav button { flex: 0 0 86px; font-size: .78rem; text-align: center; } .topbar { height: 62px; padding: 0 20px; } .screen { padding: 25px 20px; } .stats { grid-template-columns: repeat(2, 1fr); } .table-wrap { overflow-x: auto; } table { min-width: 760px; } .customer-layout { grid-template-columns: 1fr; } .theme-grid { grid-template-columns: repeat(2, 1fr); } .preview { min-height: 260px; } .preview h2 { margin-top: 30px; } .preview .contact { margin-top: 50px; } }
       @media (max-width: 680px) { .login { grid-template-columns: 1fr; } .login-aside { min-height: 260px; padding: 40px 24px; } .login-aside h1 { font-size: 2.8rem; } .login-panel { padding: 42px 0; } .page-head { align-items: flex-start; flex-direction: column; } .create { width: 100%; } .form-grid, .details-grid { grid-template-columns: 1fr; } .details-grid .wide { grid-column: auto; } .topbar h3 { font-size: .9rem; } .profile { font-size: .78rem; } }
       /* Customer theme gallery */
@@ -286,6 +286,61 @@
         $("#screen").innerHTML = `${pageHeader("My account", "Administrator and notification preferences.", false)}<form class="panel" id="settingsForm" style="padding:24px; max-width:680px"><h2>Administrator profile</h2><p class="muted">Manage the local demonstration administrator preferences.</p><label>Display name</label><input name="displayName" value="${app.settings?.display_name || "Asorkar"}"><label>Email notifications</label><select name="emailNotifications"><option${app.settings?.email_notifications === "No email notifications" ? "" : " selected"}>Payment and card status updates</option><option${app.settings?.email_notifications === "No email notifications" ? " selected" : ""}>No email notifications</option></select><span class="muted" id="settingsStatus"></span><button class="primary">Save changes</button></form>`;
         $("#settingsForm").onsubmit = async (event) => { event.preventDefault(); app.settings = await api("/api/admin/settings", { method: "PATCH", body: JSON.stringify(Object.fromEntries(new FormData(event.target))) }); $("#userName").textContent = app.settings.display_name; $("#settingsStatus").textContent = "Settings saved"; };
         if (!app.settings) api("/api/admin/settings").then((settings) => { app.settings = settings; render(); });
+      };
+    </script>
+    <script>
+      // QR uploads are kept separate from URL settings so either option remains available.
+      const paymentQrFields = [["Paytm", "paytmQrImage"], ["Google Pay", "googlePayQrImage"], ["PhonePe", "phonepeQrImage"]];
+      const paymentOptionsForm = $("#paymentOptionsForm");
+      paymentQrFields.forEach(([name, field]) => {
+        const input = document.createElement("input");
+        input.name = field;
+        input.type = "file";
+        input.accept = "image/gif,image/jpeg,image/png,image/webp";
+        input.dataset.qrName = name;
+        const label = document.createElement("label");
+        label.textContent = `Upload ${name} QR image (250 KB max)`;
+        paymentOptionsForm.elements[`${field.replace("Image", "Url")}`].parentElement.append(label, input);
+      });
+      const paymentQrPreviews = document.createElement("div");
+      paymentQrPreviews.id = "paymentQrPreviews";
+      paymentQrPreviews.className = "qr-upload-preview";
+      paymentOptionsForm.querySelector(".customer-actions").before(paymentQrPreviews);
+      const originalPopulatePaymentOptions = populatePaymentOptions;
+      populatePaymentOptions = (card) => {
+        originalPopulatePaymentOptions(card);
+        paymentQrPreviews.replaceChildren();
+        [["Paytm", card.paytm_qr_url], ["Google Pay", card.google_pay_qr_url], ["PhonePe", card.phonepe_qr_url]].forEach(([name, url]) => {
+          if (!url) return;
+          const figure = document.createElement("figure");
+          const image = document.createElement("img");
+          image.src = url;
+          image.alt = `${name} QR code`;
+          const caption = document.createElement("figcaption");
+          caption.textContent = `${name} QR saved`;
+          figure.append(image, caption);
+          paymentQrPreviews.append(figure);
+        });
+      };
+      paymentOptionsForm.onsubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(paymentOptionsForm);
+        const fields = Object.fromEntries([...formData.entries()].filter(([, value]) => typeof value === "string"));
+        const status = $("#paymentStatus");
+        try {
+          let card = await api(`/api/customer/cards/${customerSession.cardId}/payment-options`, { method: "PATCH", body: JSON.stringify(fields) });
+          const uploads = new FormData();
+          paymentQrFields.forEach(([, field]) => { const file = formData.get(field); if (file?.size) uploads.append(field, file); });
+          if ([...uploads.keys()].length) {
+            const response = await fetch(`/api/customer/cards/${customerSession.cardId}/payment-options/qr`, { method: "POST", body: uploads });
+            if (!response.ok) throw new Error((await response.json()).error || "QR upload failed");
+            card = await response.json();
+            populatePaymentOptions(card);
+          }
+          status.textContent = "Payment options saved";
+          $("#paymentView").hidden = true;
+          $("#productsView").hidden = false;
+        } catch (error) { status.textContent = error.message; }
       };
     </script>
     <script>
