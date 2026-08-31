@@ -26,7 +26,7 @@
       .modal { position: fixed; inset: 0; z-index: 4; display: grid; place-items: center; padding: 20px; background: #14233a80; } .modal[hidden] { display: none; } .dialog { width: min(100%, 570px); padding: 27px; border-radius: 14px; background: #fff; box-shadow: 0 22px 70px #14233a44; } .dialog h2 { margin-bottom: 3px; } .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; } .dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 26px; } .secondary { padding: 11px 16px; color: #505b67; background: #edf0f3; } .dialog-actions .primary { width: auto; margin: 0; padding: 11px 16px; }
       .auth-switch { display: flex; gap: 7px; margin: 25px 0 6px; } .auth-switch button { flex: 1; padding: 10px; color: #6d7580; background: #edf0f3; } .auth-switch button.active { color: #fff; background: #14233a; } .link-button { padding: 0; color: #0877c9; background: transparent; font-size: .85rem; } .customer-app { min-height: 100vh; background: #f5f7fa; } .customer-top { display: flex; align-items: center; justify-content: space-between; padding: 19px max(20px, calc((100% - 1180px) / 2)); background: #fff; border-bottom: 1px solid #e5e9ed; } .customer-top .brand { margin: 0; } .customer-top .brand-logo { width: 185px; } .customer-main { width: min(100% - 40px, 1180px); margin: 46px auto; } .stepper { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 34px; } .step { flex: 0 0 auto; padding: 9px 13px; border-radius: 999px; color: #66717d; background: #e7ebef; font-size: .84rem; font-weight: 700; } .step.active { color: #fff; background: #0877c9; } .customer-layout { display: grid; grid-template-columns: 1fr 300px; gap: 26px; align-items: start; } .theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; } .theme { min-height: 245px; padding: 15px; border: 2px solid #e0e6eb; border-radius: 12px; color: #fff; text-align: left; box-shadow: 0 2px 7px #1b2b3c08; } .theme.active { border-color: #0877c9; box-shadow: 0 0 0 3px #d9ecff; } .theme strong { display: block; margin-top: 150px; font-size: 1rem; } .theme small { color: inherit; opacity: .8; } .ocean { background: #0c6da6; } .forest { background: #24714f; } .berry { background: #a43a5a; } .mono { background: #20242b; } .preview { min-height: 400px; padding: 25px; border-radius: 14px; color: #fff; background: #0c6da6; } .preview.forest { background: #24714f; } .preview.berry { background: #a43a5a; } .preview.mono { background: #20242b; } .preview h2 { margin-top: 80px; } .preview p { color: #e2f1fb; } .preview .contact { margin-top: 80px; border-top: 1px solid #ffffff55; padding-top: 16px; font-size: .86rem; } .customer-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
       .details-card { max-width: 860px; padding: 30px; } .details-card h2 { margin-bottom: 4px; } .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; } .details-grid .wide { grid-column: 1 / -1; } textarea { width: 100%; min-height: 110px; resize: vertical; border: 1px solid #dce1e7; border-radius: 9px; padding: 13px 14px; font: inherit; } textarea:focus { border-color: #1671c9; box-shadow: 0 0 0 3px #dceeff; outline: none; } .field-hint { display: block; margin-top: 5px; color: #78818c; font-size: .75rem; }
-      .social-card { max-width: 860px; padding: 30px; } .social-card h2 { margin-bottom: 4px; } .qr-upload-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; } .qr-upload-preview figure { margin: 0; padding: 10px; border: 1px solid #e0e6eb; border-radius: 9px; background: #f8fafc; } .qr-upload-preview img { display: block; width: 100%; max-width: 150px; aspect-ratio: 1; margin: 0 auto 8px; object-fit: contain; background: #fff; } .qr-upload-preview figcaption { color: #596572; font-size: .78rem; font-weight: 700; text-align: center; }
+      .social-card { max-width: 860px; padding: 30px; } .social-card h2 { margin-bottom: 4px; } .qr-upload-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; } .qr-upload-box { position: relative; display: grid; min-height: 238px; place-items: center; padding: 16px; overflow: hidden; border: 1px dashed #afbdca; border-radius: 12px; background: #f8fafc; color: #596572; cursor: pointer; text-align: center; transition: border-color .15s, background .15s; } .qr-upload-box:hover, .qr-upload-box:focus-within { border-color: #0877c9; background: #f1f8ff; } .qr-upload-box input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; opacity: 0; cursor: pointer; } .qr-upload-box img { display: block; width: min(100%, 156px); aspect-ratio: 1; margin: 0 auto 11px; object-fit: contain; border-radius: 6px; background: #fff; } .qr-upload-icon { display: grid; width: 42px; height: 42px; place-items: center; margin: 0 auto 12px; border-radius: 50%; background: #e3f1fc; color: #0877c9; font-size: 24px; font-weight: 400; } .qr-upload-box strong, .qr-upload-box small { display: block; } .qr-upload-box strong { color: #354150; font-size: .9rem; } .qr-upload-box small { margin-top: 5px; font-size: .74rem; line-height: 1.4; } .qr-upload-box.has-preview { border-style: solid; background: #fff; } @media (max-width: 680px) { .qr-upload-grid { grid-template-columns: 1fr; } .qr-upload-box { min-height: 210px; } }
       @media (max-width: 850px) { .app { grid-template-columns: 1fr; } .sidebar { padding: 15px; } .brand { margin-bottom: 16px; } .nav { display: flex; overflow-x: auto; } .nav small { display: none; } .nav button { flex: 0 0 86px; font-size: .78rem; text-align: center; } .topbar { height: 62px; padding: 0 20px; } .screen { padding: 25px 20px; } .stats { grid-template-columns: repeat(2, 1fr); } .table-wrap { overflow-x: auto; } table { min-width: 760px; } .customer-layout { grid-template-columns: 1fr; } .theme-grid { grid-template-columns: repeat(2, 1fr); } .preview { min-height: 260px; } .preview h2 { margin-top: 30px; } .preview .contact { margin-top: 50px; } }
       @media (max-width: 680px) { .login { grid-template-columns: 1fr; } .login-aside { min-height: 260px; padding: 40px 24px; } .login-aside h1 { font-size: 2.8rem; } .login-panel { padding: 42px 0; } .page-head { align-items: flex-start; flex-direction: column; } .create { width: 100%; } .form-grid, .details-grid { grid-template-columns: 1fr; } .details-grid .wide { grid-column: auto; } .topbar h3 { font-size: .9rem; } .profile { font-size: .78rem; } }
       /* Customer theme gallery */
@@ -128,7 +128,7 @@
       function showCustomerStep(step) { $("#themeStep").hidden = step !== "theme"; $("#detailsStep").hidden = step !== "details"; $("#socialStep").hidden = step !== "social"; document.querySelectorAll("[data-customer-step]").forEach(button => button.classList.toggle("active", button.dataset.customerStep === step)); }
       function populateCompanyDetails(card) { const form = $("#companyDetailsForm"); const nameParts = customerSession.name.trim().split(/\s+/); const values = { companyName: card.company_name, logoUrl: card.logo_url, firstName: card.first_name || nameParts[0], lastName: card.last_name || nameParts.slice(1).join(" "), designation: card.designation, phone: card.phone || "", alternatePhone: card.alternate_phone, whatsapp: card.whatsapp, address: card.address, website: card.website, location: card.location, establishedOn: card.established_on, aboutUs: card.about_us }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
       function populateSocialLinks(card) { const form = $("#socialLinksForm"); const values = { facebookUrl: card.facebook_url, twitterUrl: card.twitter_url, instagramUrl: card.instagram_url, linkedinUrl: card.linkedin_url, youtubeUrl: card.youtube_url, pinterestUrl: card.pinterest_url, video1Url: card.video_1_url, video2Url: card.video_2_url, video3Url: card.video_3_url, video4Url: card.video_4_url, video5Url: card.video_5_url }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
-      function populatePaymentOptions(card) { const form = $("#paymentOptionsForm"); const values = { paytmNumber: card.paytm_number, googlePayNumber: card.google_pay_number, phonepeNumber: card.phonepe_number, bankName: card.bank_name, accountHolder: card.account_holder, bankAccountNumber: card.bank_account_number, ifscCode: card.ifsc_code, accountType: card.account_type, paytmQrUrl: card.paytm_qr_url, googlePayQrUrl: card.google_pay_qr_url, phonepeQrUrl: card.phonepe_qr_url }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
+       function populatePaymentOptions(card) { const form = $("#paymentOptionsForm"); const values = { paytmNumber: card.paytm_number, googlePayNumber: card.google_pay_number, phonepeNumber: card.phonepe_number, bankName: card.bank_name, accountHolder: card.account_holder, bankAccountNumber: card.bank_account_number, ifscCode: card.ifsc_code, accountType: card.account_type }; Object.entries(values).forEach(([name, value]) => { form.elements[name].value = value || ""; }); }
       $("#loginForm").onsubmit = async (event) => { event.preventDefault(); try { const details = { email: $("#email").value, password: $("#password").value }; if (authMode === "admin") { const user = await api("/api/login", { method: "POST", body: JSON.stringify(details) }); $("#userName").textContent = user.name; $("#loginView").hidden = true; $("#appView").hidden = false; return load(); } if (registrationMode) Object.assign(details, { name: $("#customerName").value, companyName: $("#companyName").value, phone: $("#phone").value }); const user = await api(registrationMode ? "/api/customer/register" : "/api/customer/login", { method: "POST", body: JSON.stringify(details) }); customerSession = { name: user.name || details.name, email: user.email || details.email, cardId: user.cardId }; const cards = await api(`/api/customer/cards?email=${encodeURIComponent(customerSession.email)}`); const card = cards[0]; customerSession.cardId ||= card?.id; $("#customerDisplayName").textContent = customerSession.name; $("#previewCompany").textContent = card?.company_name || details.companyName; $("#previewCustomer").textContent = customerSession.name; $("#cardPreview").className = `preview ${card?.selected_theme?.toLowerCase() || "ocean"}`; document.querySelectorAll("[data-theme]").forEach(button => button.classList.toggle("active", button.dataset.theme === (card?.selected_theme || "Ocean"))); populateCompanyDetails(card); populateSocialLinks(card); populatePaymentOptions(card); showCustomerStep("theme"); $("#loginView").hidden = true; $("#customerView").hidden = false; } catch (error) { $("#loginError").textContent = error.message; } };
       document.querySelectorAll("[data-auth]").forEach(button => button.onclick = () => setAuthMode(button.dataset.auth)); $("#toggleRegister").onclick = setRegistrationMode; $("#customerLogout").onclick = () => { $("#customerView").hidden = true; $("#loginView").hidden = false; setAuthMode("customer"); };
       if (location.pathname === "/customer-login") { setAuthMode("customer"); document.querySelector('[data-auth="admin"]').hidden = true; $("#adminHint").hidden = true; }
@@ -289,38 +289,32 @@
       };
     </script>
     <script>
-      // QR uploads are kept separate from URL settings so either option remains available.
+      // QR uploads are kept separate from payment details so files are never embedded in card JSON.
       const paymentQrFields = [["Paytm", "paytmQrImage"], ["Google Pay", "googlePayQrImage"], ["PhonePe", "phonepeQrImage"]];
       const paymentOptionsForm = $("#paymentOptionsForm");
-      paymentQrFields.forEach(([name, field]) => {
-        const input = document.createElement("input");
-        input.name = field;
-        input.type = "file";
-        input.accept = "image/gif,image/jpeg,image/png,image/webp";
-        input.dataset.qrName = name;
-        const label = document.createElement("label");
-        label.textContent = `Upload ${name} QR image (250 KB max)`;
-        paymentOptionsForm.elements[`${field.replace("Image", "Url")}`].parentElement.append(label, input);
+      [...paymentOptionsForm.querySelectorAll("h2")].find((heading) => heading.textContent === "Payment QR codes").nextElementSibling.textContent = "Upload an optional QR image for each payment app. PNG, JPEG, GIF, or WebP, up to 250 KB.";
+      const qrUrlFields = ["paytmQrUrl", "googlePayQrUrl", "phonepeQrUrl"];
+      const paymentQrInputs = paymentQrFields.map(([, field], index) => {
+        const urlInput = paymentOptionsForm.elements[qrUrlFields[index]];
+        const box = document.createElement("label");
+        box.className = "qr-upload-box";
+        box.innerHTML = `<input name="${field}" type="file" accept="image/gif,image/jpeg,image/png,image/webp"><span class="qr-upload-content"><span class="qr-upload-icon">+</span><strong>${paymentQrFields[index][0]} QR Code</strong><small>Click to upload (250 KB max)</small></span>`;
+        urlInput.parentElement.replaceWith(box);
+        const input = box.querySelector("input");
+        input.onchange = () => renderQrUpload(box, paymentQrFields[index][0]);
+        return box;
       });
-      const paymentQrPreviews = document.createElement("div");
-      paymentQrPreviews.id = "paymentQrPreviews";
-      paymentQrPreviews.className = "qr-upload-preview";
-      paymentOptionsForm.querySelector(".customer-actions").before(paymentQrPreviews);
+      paymentQrInputs[0].parentElement.className = "qr-upload-grid";
+      function renderQrUpload(box, name, url = "") {
+        const file = box.querySelector("input").files[0];
+        const source = file ? URL.createObjectURL(file) : url;
+        box.classList.toggle("has-preview", Boolean(source));
+        box.querySelector(".qr-upload-content").innerHTML = source ? `<img src="${source}" alt="${name} QR code"><strong>${name} QR Code</strong><small>${file ? file.name : "Saved QR image"}</small>` : `<span class="qr-upload-icon">+</span><strong>${name} QR Code</strong><small>Click to upload (250 KB max)</small>`;
+      }
       const originalPopulatePaymentOptions = populatePaymentOptions;
       populatePaymentOptions = (card) => {
         originalPopulatePaymentOptions(card);
-        paymentQrPreviews.replaceChildren();
-        [["Paytm", card.paytm_qr_url], ["Google Pay", card.google_pay_qr_url], ["PhonePe", card.phonepe_qr_url]].forEach(([name, url]) => {
-          if (!url) return;
-          const figure = document.createElement("figure");
-          const image = document.createElement("img");
-          image.src = url;
-          image.alt = `${name} QR code`;
-          const caption = document.createElement("figcaption");
-          caption.textContent = `${name} QR saved`;
-          figure.append(image, caption);
-          paymentQrPreviews.append(figure);
-        });
+        [["Paytm", card.paytm_qr_url], ["Google Pay", card.google_pay_qr_url], ["PhonePe", card.phonepe_qr_url]].forEach(([name, url], index) => renderQrUpload(paymentQrInputs[index], name, url || ""));
       };
       paymentOptionsForm.onsubmit = async (event) => {
         event.preventDefault();
