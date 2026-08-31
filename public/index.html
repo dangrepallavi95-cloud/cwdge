@@ -147,6 +147,7 @@
     </script>
     <script>
       const customerTabs = document.querySelector("#customerView .stepper");
+      [...customerTabs.children].find((tab) => tab.textContent.trim() === "6. Preview card")?.remove();
       customerTabs.insertAdjacentHTML("beforeend", '<button class="step" id="ecommerceTab">6. Ecommerce</button><a class="step" href="#gallery">7. Image gallery</a><a class="step" href="#preview">8. Preview card</a>');
       document.querySelector("#ecommerceTab").onclick = () => { document.querySelector("#customerView").hidden = true; document.querySelector("#ecommerceView").hidden = false; };
       const openCustomerPage = (id) => { document.querySelectorAll(".customer-app").forEach(view => view.hidden = true); document.querySelector(id).hidden = false; };
