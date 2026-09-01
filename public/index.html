@@ -30,6 +30,8 @@
       @media (max-width: 850px) { .app { grid-template-columns: 1fr; } .sidebar { padding: 15px; } .brand { margin-bottom: 16px; } .nav { display: flex; overflow-x: auto; } .nav small { display: none; } .nav button { flex: 0 0 86px; font-size: .78rem; text-align: center; } .topbar { height: 62px; padding: 0 20px; } .screen { padding: 25px 20px; } .stats { grid-template-columns: repeat(2, 1fr); } .table-wrap { overflow-x: auto; } table { min-width: 760px; } .customer-layout { grid-template-columns: 1fr; } .theme-grid { grid-template-columns: repeat(2, 1fr); } .preview { min-height: 260px; } .preview h2 { margin-top: 30px; } .preview .contact { margin-top: 50px; } }
       @media (max-width: 680px) { .login { grid-template-columns: 1fr; } .login-aside { min-height: 260px; padding: 40px 24px; } .login-aside h1 { font-size: 2.8rem; } .login-panel { padding: 42px 0; } .page-head { align-items: flex-start; flex-direction: column; } .create { width: 100%; } .form-grid, .details-grid { grid-template-columns: 1fr; } .details-grid .wide { grid-column: auto; } .topbar h3 { font-size: .9rem; } .profile { font-size: .78rem; } }
       /* Customer theme gallery */
+      .setup-back { margin: -18px max(20px, calc((100% - 1180px) / 2)) 24px; }
+      #backToTheme, #backToDetails, #backToSocial, #backToPayment { display: none; }
       #themeStep .page-head { margin-bottom: 30px; text-align: center; }
       #themeStep .page-head h1 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); }
       #themeStep .page-head p { max-width: 540px; margin-inline: auto; }
@@ -104,7 +106,14 @@
           view.prepend(header);
         }
         const tabs = main.querySelector(":scope > .stepper");
-        if (tabs) header.insertAdjacentElement("afterend", tabs);
+        if (tabs) {
+          header.insertAdjacentElement("afterend", tabs);
+          const back = document.createElement("button");
+          back.type = "button";
+          back.className = "secondary setup-back";
+          back.textContent = "Back";
+          tabs.insertAdjacentElement("afterend", back);
+        }
       };
       ["#paymentView", "#productsView"].forEach((selector) => document.querySelector(`${selector} .customer-main`).insertAdjacentHTML("afterbegin", sharedTabs));
       ["#customerView", "#paymentView", "#productsView"].forEach((selector) => setupCustomerLayout(document.querySelector(selector)));
@@ -457,6 +466,21 @@
             showCustomerStep("social");
           } catch (error) { status.textContent = error.message; }
         };
+      </script>
+      <script>
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".setup-back")) return;
+          if (!$("#customerView").hidden) {
+            if (!$("#socialStep").hidden) return showCustomerStep("details");
+            if (!$("#detailsStep").hidden) return showCustomerStep("theme");
+            return $("#customerLogout").click();
+          }
+          if (!$("#paymentView").hidden) return openCustomerPage("#customerView"), showCustomerStep("social");
+          if (!$("#productsView").hidden) return openCustomerPage("#paymentView");
+          if (!$("#ecommerceView").hidden) return openCustomerPage("#productsView");
+          if (!$("#galleryView").hidden) return openCustomerPage("#ecommerceView");
+          if (!$("#previewView").hidden) return openCustomerPage("#galleryView");
+        });
       </script>
     </body>
 </html>
